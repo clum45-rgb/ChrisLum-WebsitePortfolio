@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Christopher's Portfolio</title>
+    <style>
+      /* Reset & Base Styles */
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        overflow-x: hidden;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, Cantarell, sans-serif;
+      }
+
+      /* Header */
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 60px;
+        background-color: #004080;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+      }
+
+      .navbar {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 30px;
+      }
+
+      .site-title {
+        font-size: 1.5rem;
+        margin: 0;
+      }
+
+      .site-title a {
+        color: white;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .site-title a:hover {
+        color: #ffcc00;
+      }
+
+      .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 20px;
+        margin: 0;
+        padding: 0;
+      }
+
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s ease;
+      }
+
+      .nav-links a:hover {
+        color: #ffcc00;
+      }
+
+      /* Intro Section - Full Width */
+      #intro {
+        background-color: #004080;
+        color: white;
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+        margin: 0;
+        position: relative;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+      }
+
+      .intro-content {
+        padding: 20px;
+      }
+
+      .intro-content h1 {
+        font-size: 3rem;
+        margin-bottom: 10px;
+      }
+
+      .intro-content p {
+        font-size: 1.3rem;
+        margin-bottom: 30px;
+      }
+
+      .profile-pic {
+        width: 360px;
+        height: 360px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #cce6ff;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        margin-top: 20px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .profile-pic:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Main Content */
+      main {
+        width: 100%;
+        padding: 80px 40px 40px;
+      }
+
+      /* Section Titles */
+      section h2 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+        color: #004080;
+        border-bottom: 2px solid #cce6ff;
+        padding-bottom: 5px;
+        text-align: center;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      /* Projects Section */
+      #projects {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      /* Projects */
+      .project {
+        background-color: #e6f2ff;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        transition: box-shadow 0.3s ease, transform 0.3s ease;
+      }
+
+      .project:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transform: translateY(-4px);
+      }
+
+      .project h3 {
+        margin-bottom: 10px;
+        color: #003366;
+      }
+
+      .project-images {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+        margin: 20px 0;
+      }
+
+      .project-images img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .project-images img:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .project a {
+        display: inline-block;
+        margin-top: 10px;
+        color: #004080;
+        text-decoration: underline;
+        transition: color 0.3s ease;
+      }
+
+      .project a:hover {
+        color: #003366;
+      }
+
+      /* Skills */
+      #skills {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+        margin-top: 20px;
+      }
+
+      .skill-category {
+        background-color: #e6f2ff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .skill-category:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .skill-category h3 {
+        margin-bottom: 15px;
+        color: #004080;
+        font-size: 1.2rem;
+        border-bottom: 1px solid #cce6ff;
+        padding-bottom: 5px;
+      }
+
+      .skill-category ul {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      .skill-category li {
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: #003366;
+      }
+
+      /* Contact */
+      #contact {
+        max-width: 1200px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      #contact a {
+        color: #004080;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      #contact a:hover {
+        color: #003366;
+        text-decoration: underline;
+      }
+
+      /* Footer */
+      footer {
+        text-align: center;
+        padding: 20px;
+        font-size: 0.9rem;
+        color: #666;
+        border-top: 1px solid #ddd;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <h1 class="site-title"><a href="#intro">Christopher</a></h1>
+        <ul class="nav-links">
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <section id="intro">
+      <div class="intro-content">
+        <h1>Hi, I'm Christopher</h1>
+        <p>Informatics @ UW | Aspiring Software Developer</p>
+        <img
+          src="Chris Lum.jpg"
+          alt="Photo of Christopher"
+          class="profile-pic"
+        />
+      </div>
+    </section>
+
+    <main>
+      <section id="projects">
+        <h2>Projects</h2>
+        <div class="project">
+          <h3>Impact of Population on Unemployment Analysis</h3>
+          <p>
+            For my class project, I looked at U.S. unemployment and population
+            data to see how things like population density might affect job
+            rates. Using R and ggplot, I built interactive charts—scatterplots,
+            heatmaps, and histograms to spot patterns across states. It is all
+            wrapped up into a Quarto doc and I found a 15% correlation between
+            how packed a place is and how many people are out of work.
+          </p>
+          <a
+            href="https://clum45-rgb.github.io/Info201-The-Impact-of-Population-on-Unemployment-Analysis/info201final.html"
+            >View Project</a
+          >
+        </div>
+        <div class="project">
+          <h3>Pathfinder UW</h3>
+          <p>
+            Pathfinder is a comprehensive website tailored to new hikers,
+            designed to centralize resources and provide an interactive and
+            engaging experience. The website has three primary sections: Trail
+            Recommendations, Safety and Preparation, and Community Feedback. The
+            Trail Recommendations section features filters for location,
+            difficulty, altitude, and length, making it easier for users to
+            discover hikes suited to their preferences and needs. The Safety and
+            Preparation section consists of tips on selecting suitable gear,
+            preparing for weather conditions, and links to CPR and first aid
+            courses available online or in their area. Finally, the Community
+            Feedback tab serves as a platform for hikers to share stories, ask
+            questions, and learn from each other's experiences. It supports
+            beginner hikers in building confidence, fostering connections, and
+            enjoying the outdoors safely and responsibly.
+          </p>
+          <div class="project-images">
+            <img src="pathfinder1.jpg" alt="Project Two Screenshot 1" />
+            <img src="pathfinder2.jpg" alt="Project Two Screenshot 2" />
+            <img src="pathfinder3.jpg" alt="Project Two Screenshot 3" />
+            <img src="pathfinder4.jpg" alt="Project Two Screenshot 4" />
+            <img src="pathfinder5.jpg" alt="Project Two Screenshot 5" />
+          </div>
+          <a
+            href="https://www.figma.com/proto/9FF7Ms68Ns7m4hdavGZPlY/info-200-pathfinder?node-id=3-3&starting-point-node-id=1%3A25&scaling=contain&t=W212CZ3wzqTO49lN-1"
+            target="_blank"
+            rel="noopener noreferrer"
+            >View Project</a
+          >
+        </div>
+        <div class="project">
+          <h3>Project Three</h3>
+          <p>Brief description of your third project.</p>
+          <a href="#">View Project</a>
+        </div>
+      </section>
+
+      <section id="skills">
+        <h2>Skills</h2>
+        <div class="skills-grid">
+          <div class="skill-category">
+            <h3>Languages</h3>
+            <ul>
+              <li>Java</li>
+              <li>Python</li>
+              <li>HTML, CSS, JavaScript</li>
+              <li>R</li>
+            </ul>
+          </div>
+          <div class="skill-category">
+            <h3>Tools & Frameworks</h3>
+            <ul>
+              <li>React (Learning)</li>
+              <li>ggplot</li>
+              <li>VS Code</li>
+              <li>Git</li>
+            </ul>
+          </div>
+          <div class="skill-category">
+            <h3>Concepts & Strengths</h3>
+            <ul>
+              <li>Algorithms & Data Structures</li>
+              <li>Game Logic</li>
+              <li>Data Visualization</li>
+              <li>Workflow Optimization</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <h2>Contact</h2>
+        <p>
+          Reach out via <a href="mailto:your-email@example.com">email</a> or
+          connect on <a href="#">LinkedIn</a>.
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 Christopher. Built with curiosity and code.</p>
+    </footer>
+  </body>
+</html>
