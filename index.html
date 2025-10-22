@@ -70,6 +70,48 @@
 
         <h2>Projects</h2>
         <div class="project">
+          <h3>ClubHub</h3>
+
+          <p>
+            Me and my DubHacks team built ClubHub using Metas official API to connect with Instagram professional
+            accounts run by campus clubs. When a user enters a clubs handle, our system scrapes 
+            posts from the past thirty days—analyzing both captions and event graphics—and 
+            converts the data into JSON files stored in an AWS S3 bucket. Using Amazon Bedrock, 
+            we process these files to filter for only upcoming events and extract key metadata 
+            such as the event name, date, time, location, and description. This information is 
+            then fed into our frontend, a React-based dashboard designed in Figma, where users 
+            can explore clubs and view upcoming events tailored to their interests. The platform 
+            also allows RSOs to build and manage their profiles, making club discovery and involvement 
+            centralized and up to date.
+          </p>
+          <p style="color: gray;">(We built this on AWS during our hackathon so we lost our Amazon Bedrock access. However, we are currently
+            working to redeploy the project on another server using ChatGPT for inference, and will update the link when it's live!
+            Our figma prototype is still available to view.)</p>
+          <div class="project-images">
+            <img
+              src="ClubHub Dashboard.png"
+              alt="Project Two Screenshot 1"
+              class="lightbox-trigger"
+            />
+            <img
+              src="ClubHub Onboarding Screen.png"
+              alt="Project Two Screenshot 1"
+              class="lightbox-trigger"
+            />
+            <img
+              src="ClubHub Org Creation.png"
+              alt="Project Two Screenshot 1"
+              class="lightbox-trigger"
+            />
+          </div>
+          <a
+            href="https://www.figma.com/make/eoAgn33BU20vTUrtOQAqyr/University-Club-Discovery-Website?node-id=0-1&p=f&t=16Gk1LQ6lWXqsvtC-0"
+            target="_blank"
+            rel="noopener noreferrer"
+            >View Project</a
+          >
+        </div>
+        <div class="project">
           <h3>Impact of Population on Unemployment Analysis</h3>
 
           <p>
@@ -200,13 +242,17 @@
               <li>Java</li>
               <li>Python</li>
               <li>HTML, CSS, JavaScript</li>
+              <li>Rust</li>
+              <li>TypeScript</li>
               <li>R</li>
             </ul>
           </div>
           <div class="skill-category">
             <h3>Tools & Frameworks</h3>
             <ul>
-              
+              <li>Tauri</li>
+              <li>Bitbucket</li>
+              <li>Jira</li>
               <li>Figma</li>
               <li>VS Code</li>
               <li>Git</li>
