@@ -21,6 +21,8 @@ export function AppLayout() {
 
   const onSectionPage = isSectionPath(location.pathname)
   const isAbout = location.pathname === '/about'
+  const isContact = location.pathname === '/contact'
+  const isProjects = location.pathname === '/projects'
 
   useEffect(() => {
     if (onSectionPage) {
@@ -33,6 +35,10 @@ export function AppLayout() {
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
+      if ((isContact || isProjects) && event.key !== 'Escape') {
+        return
+      }
+
       if (event.key === 'ArrowDown' || event.key === 'ArrowRight') {
         event.preventDefault()
         setSelectedIndex((index) => ((index ?? -1) + 1) % menuItems.length)
@@ -65,7 +71,7 @@ export function AppLayout() {
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [selectedIndex, onSectionPage, navigate])
+  }, [selectedIndex, onSectionPage, isContact, isProjects, navigate])
 
   return (
     <div
