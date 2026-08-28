@@ -102,6 +102,37 @@ export type Experience = {
 
 export const experiences: Experience[] = []
 
+export const SKILL_MAX_RANK = 5
+
+export const skillRankNames = [
+  '',
+  'Novice',
+  'Familiar',
+  'Practiced',
+  'Advanced',
+  'Expert',
+] as const
+
+export type SkillStat = {
+  id: string
+  label: string
+  lines: string[]
+  level: 1 | 2 | 3 | 4 | 5
+}
+
+export const skillStats: SkillStat[] = [
+  { id: 'frontend', label: 'Frontend', lines: ['Frontend'], level: 4 },
+  { id: 'backend', label: 'Backend', lines: ['Backend'], level: 5 },
+  { id: 'aiml', label: 'AI/ML', lines: ['AI/ML'], level: 4 },
+  { id: 'cloud', label: 'Cloud/DevOps', lines: ['Cloud', 'DevOps'], level: 3 },
+  {
+    id: 'data',
+    label: 'Data Engineering',
+    lines: ['Data', 'Engineering'],
+    level: 3,
+  },
+]
+
 export type SkillGroup = {
   title: string
   items: string[]
@@ -114,7 +145,19 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     title: 'Tools & Frameworks',
-    items: ['Tauri', 'Bitbucket', 'Jira', 'Figma', 'VS Code', 'Git', 'ggplot'],
+    items: [
+      'Next.js',
+      'Supabase',
+      'PostgreSQL',
+      'OpenAI',
+      'Tauri',
+      'Bitbucket',
+      'Jira',
+      'Figma',
+      'VS Code',
+      'Git',
+      'ggplot',
+    ],
   },
   {
     title: 'Concepts & Strengths',
