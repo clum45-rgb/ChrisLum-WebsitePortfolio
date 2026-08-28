@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
-import { getBackgroundVideo } from '../data/backgroundVideos'
+import { BattleMenu } from '../components/BattleMenu'
 import { HudOverlay } from '../components/HudOverlay'
-import { MainMenu } from '../components/MainMenu'
 import { PageTransition } from '../components/PageTransition'
+import { site } from '../data/content'
 import {
   getMenuIndexFromPath,
   isSectionPath,
@@ -13,40 +13,43 @@ import {
 export function AppLayout() {
   const location = useLocation()
   const navigate = useNavigate()
-  const [selectedIndex, setSelectedIndex] = useState(() =>
-    getMenuIndexFromPath(location.pathname),
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(() =>
+    isSectionPath(location.pathname)
+      ? getMenuIndexFromPath(location.pathname)
+      : null,
   )
-  const [syncedPath, setSyncedPath] = useState(location.pathname)
 
   const onSectionPage = isSectionPath(location.pathname)
-  const backgroundVideo = getBackgroundVideo(location.pathname)
+  const isAbout = location.pathname === '/about'
 
-  if (location.pathname !== syncedPath) {
-    setSyncedPath(location.pathname)
-    if (isSectionPath(location.pathname)) {
+  useEffect(() => {
+    if (onSectionPage) {
       setSelectedIndex(getMenuIndexFromPath(location.pathname))
+      return
     }
-  }
+
+    setSelectedIndex(null)
+  }, [location.pathname, onSectionPage])
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'ArrowDown') {
+      if (event.key === 'ArrowDown' || event.key === 'ArrowRight') {
         event.preventDefault()
-        setSelectedIndex((index) => (index + 1) % menuItems.length)
+        setSelectedIndex((index) => ((index ?? -1) + 1) % menuItems.length)
         return
       }
 
-      if (event.key === 'ArrowUp') {
+      if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') {
         event.preventDefault()
         setSelectedIndex(
-          (index) => (index - 1 + menuItems.length) % menuItems.length,
+          (index) =>
+            ((index ?? 0) - 1 + menuItems.length) % menuItems.length,
         )
         return
       }
 
       if (event.key === 'Enter') {
-        const target = event.target as HTMLElement | null
-        if (target?.closest('a, button, input, textarea, [tabindex]')) {
+        if (selectedIndex === null) {
           return
         }
         event.preventDefault()
@@ -65,26 +68,37 @@ export function AppLayout() {
   }, [selectedIndex, onSectionPage, navigate])
 
   return (
-    <div className="app">
-      <video
-        key={backgroundVideo}
-        className="background-video"
-        autoPlay
-        loop
-        muted
-        playsInline
+    <div
+      className={[
+        'app',
+        onSectionPage && 'app--panel-open',
+        isAbout && 'app--about',
+      ]
+        .filter(Boolean)
+        .join(' ')}
+    >
+      <img
+        className="portrait"
+        src={site.background.src}
+        alt=""
         aria-hidden="true"
-        src={backgroundVideo}
       />
-
-      <div className="app__overlay" aria-hidden="true" />
+      <div className="stage__vignette" aria-hidden="true" />
+      <div className="stage__slash stage__slash--a" aria-hidden="true" />
+      <div className="stage__slash stage__slash--b" aria-hidden="true" />
+      <div className="stage__grain" aria-hidden="true" />
 
       <div className="app__ui">
         <HudOverlay panelOpen={onSectionPage} />
-        <MainMenu
+        <BattleMenu
           selectedIndex={selectedIndex}
           currentPath={location.pathname}
           onSelect={setSelectedIndex}
+          onClear={() =>
+            setSelectedIndex(
+              onSectionPage ? getMenuIndexFromPath(location.pathname) : null,
+            )
+          }
         />
         <PageTransition>
           <Outlet />

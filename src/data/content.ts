@@ -1,17 +1,21 @@
 export const site = {
   name: 'Chris Lum',
-  hudName: 'Chris',
+  hudName: 'Chris Lum',
   hudCaption: 'Informatics @ UW',
   tagline: 'Informatics @ UW | Aspiring Software Developer',
   photo: {
     src: `${import.meta.env.BASE_URL}images/profile.jpg`,
     alt: 'Photo of Christopher',
   },
+  background: {
+    src: `${import.meta.env.BASE_URL}images/background.jpg`,
+    alt: 'Christopher Lum at sunset',
+  },
   bio: "I'm a 2nd-Year at the University of Washington with a passion for software development and user-centered design. I love solving complex problems and am eager to contribute my skills and develop through new challenges and experiences.",
   email: 'clum45@uw.edu',
   github: 'https://github.com/clum45-rgb',
   linkedin: 'https://www.linkedin.com/in/christopher-s-lum/',
-  footer: '© 2025 Christopher. Built with curiosity and code.',
+  footer: '© 2026 Christopher. Built with curiosity and code.',
 }
 
 export type Project = {

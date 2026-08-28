@@ -1,19 +1,64 @@
-export type SectionId = 'about' | 'projects' | 'skills' | 'contact'
+export type SectionId = 'about' | 'experience' | 'projects' | 'skills' | 'contact'
+export type BannerSlot = 'tl' | 'bl' | 'tr' | 'mr' | 'br'
+export type ButtonKind = 'l2' | 'dpad' | 'triangle' | 'circle' | 'square'
+export type SubStyle = 'script' | 'jp'
 
 export type MenuItem = {
   id: SectionId
   label: string
+  sublabel: string
+  subStyle: SubStyle
   path: string
-  offsetX: number
-  angle: number
-  brightness: number
+  slot: BannerSlot
+  button: ButtonKind
 }
 
 export const menuItems: MenuItem[] = [
-  { id: 'about', label: 'ABOUT ME', path: '/about', offsetX: 0, angle: -6, brightness: 1 },
-  { id: 'projects', label: 'PROJECTS', path: '/projects', offsetX: 28, angle: -2, brightness: 0.72 },
-  { id: 'skills', label: 'SKILLS', path: '/skills', offsetX: 8, angle: 2, brightness: 0.52 },
-  { id: 'contact', label: 'CONTACT', path: '/contact', offsetX: 32, angle: 6, brightness: 0.62 },
+  {
+    id: 'about',
+    label: 'ABOUT ME',
+    sublabel: 'Know me',
+    subStyle: 'script',
+    path: '/about',
+    slot: 'tl',
+    button: 'l2',
+  },
+  {
+    id: 'experience',
+    label: 'EXPERIENCE',
+    sublabel: '経歴',
+    subStyle: 'jp',
+    path: '/experience',
+    slot: 'tr',
+    button: 'square',
+  },
+  {
+    id: 'projects',
+    label: 'PROJECTS',
+    sublabel: 'プロジェクト',
+    subStyle: 'jp',
+    path: '/projects',
+    slot: 'br',
+    button: 'triangle',
+  },
+  {
+    id: 'skills',
+    label: 'SKILLS',
+    sublabel: 'スキル',
+    subStyle: 'jp',
+    path: '/skills',
+    slot: 'bl',
+    button: 'dpad',
+  },
+  {
+    id: 'contact',
+    label: 'CONTACT',
+    sublabel: '連絡する',
+    subStyle: 'jp',
+    path: '/contact',
+    slot: 'mr',
+    button: 'circle',
+  },
 ]
 
 export function getMenuIndexFromPath(pathname: string): number {

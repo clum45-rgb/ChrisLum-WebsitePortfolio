@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { site } from '../data/content'
 
 type HudOverlayProps = {
@@ -5,23 +6,42 @@ type HudOverlayProps = {
 }
 
 export function HudOverlay({ panelOpen }: HudOverlayProps) {
+  const name = (
+    <>
+      <span className="hud__name-red" aria-hidden="true" />
+      <div className="hud__name-plate">
+        <p className="hud__name-title">{site.hudName}</p>
+        <p className="hud__name-caption">{site.hudCaption}</p>
+      </div>
+    </>
+  )
+
   return (
     <div className="hud">
-      <div className="hud__info-box">
-        <p className="hud__info-primary">{site.hudName}</p>
-        <p className="hud__info-caption">{site.hudCaption}</p>
-      </div>
+      {panelOpen ? (
+        <Link
+          to="/"
+          className="hud__name hud__name--link"
+          aria-label="Back to home"
+        >
+          {name}
+        </Link>
+      ) : (
+        <div className="hud__name">{name}</div>
+      )}
 
       <div className="hud__prompts">
-        <div className="hud__prompt">
-          <span className="hud__prompt-label">Confirm</span>
-          <kbd className="hud__key">↵</kbd>
-        </div>
-        {panelOpen && (
+        {!panelOpen && (
           <div className="hud__prompt">
-            <span className="hud__prompt-label">Close</span>
-            <kbd className="hud__key">Esc</kbd>
+            <span className="hud__prompt-label">Confirm</span>
+            <kbd className="hud__key">↵</kbd>
           </div>
+        )}
+        {panelOpen && (
+          <Link to="/" className="hud__prompt hud__prompt--link" aria-label="Back to home">
+            <span className="hud__prompt-label">Back</span>
+            <kbd className="hud__key">Esc</kbd>
+          </Link>
         )}
       </div>
     </div>

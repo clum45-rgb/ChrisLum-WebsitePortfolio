@@ -10,7 +10,7 @@ const contentVariants = {
   initial: {
     x: '55%',
     y: '-50%',
-    skewX: -14,
+    skewX: -16,
     opacity: 0,
   },
   animate: {
@@ -30,6 +30,30 @@ const contentVariants = {
     opacity: 0,
     transition: {
       duration: 0.28,
+      ease: [0.4, 0, 0.6, 1] as const,
+    },
+  },
+}
+
+const aboutVariants = {
+  initial: { opacity: 0, scale: 0.96, x: 0, y: 0 },
+  animate: {
+    opacity: 1,
+    scale: 1,
+    x: 0,
+    y: 0,
+    transition: {
+      duration: 0.4,
+      ease: [0.16, 1, 0.3, 1] as const,
+    },
+  },
+  exit: {
+    opacity: 0,
+    scale: 0.98,
+    x: 0,
+    y: 0,
+    transition: {
+      duration: 0.22,
       ease: [0.4, 0, 0.6, 1] as const,
     },
   },
@@ -60,17 +84,18 @@ const contentVariantsMobile = {
 }
 
 const wipeVariants = {
-  initial: { x: '110%', skewX: -18, opacity: 0.95 },
+  initial: { x: '110%', skewX: -22, opacity: 1 },
   animate: {
-    x: '-130%',
-    skewX: -18,
-    opacity: 0.95,
+    x: '-220%',
+    skewX: -22,
+    opacity: 0,
     transition: {
-      duration: 0.48,
-      ease: [0.16, 1, 0.3, 1] as const,
+      x: { duration: 0.48, ease: [0.16, 1, 0.3, 1] as const },
+      skewX: { duration: 0.48, ease: [0.16, 1, 0.3, 1] as const },
+      opacity: { duration: 0.16, delay: 0.32 },
     },
   },
-  exit: { opacity: 0, transition: { duration: 0.1 } },
+  exit: { opacity: 0, transition: { duration: 0.08 } },
 }
 
 function useMediaQuery(query: string) {
@@ -92,8 +117,23 @@ function useMediaQuery(query: string) {
 export function PageTransition({ children }: PageTransitionProps) {
   const location = useLocation()
   const isHome = location.pathname === '/'
+  const isAbout = location.pathname === '/about'
+  const isSkills = location.pathname === '/skills'
   const isMobile = useMediaQuery('(max-width: 768px)')
-  const variants = isMobile ? contentVariantsMobile : contentVariants
+  const variants =
+    isAbout || isSkills
+      ? aboutVariants
+      : isMobile
+        ? contentVariantsMobile
+        : contentVariants
+
+  const contentClass = [
+    'page-content',
+    isAbout && 'page-content--about',
+    isSkills && 'page-content--skills',
+  ]
+    .filter(Boolean)
+    .join(' ')
 
   return (
     <>
@@ -101,7 +141,7 @@ export function PageTransition({ children }: PageTransitionProps) {
         {!isHome && (
           <motion.div
             key={location.pathname}
-            className="page-content"
+            className={contentClass}
             variants={variants}
             initial="initial"
             animate="animate"
