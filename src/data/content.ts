@@ -92,6 +92,16 @@ export const projects: Project[] = [
   },
 ]
 
+export type Experience = {
+  role: string
+  company: string
+  dates: string
+  location?: string
+  highlights: string[]
+}
+
+export const experiences: Experience[] = []
+
 export type SkillGroup = {
   title: string
   items: string[]
