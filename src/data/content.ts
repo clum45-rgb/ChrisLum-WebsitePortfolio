@@ -129,14 +129,50 @@ export const projects: Project[] = [
 ]
 
 export type Experience = {
-  role: string
+  id: string
   company: string
+  role: string
   dates: string
   location?: string
+  summary: string
   highlights: string[]
+  letter: string
+  logo?: string
+  href?: string
+  comingSoon?: boolean
 }
 
-export const experiences: Experience[] = []
+const comingSoonJob = (slot: number): Experience => ({
+  id: `coming-soon-${slot}`,
+  company: 'Coming Soon',
+  role: 'Coming Soon',
+  dates: 'Coming Soon',
+  location: 'Coming Soon',
+  letter: '?',
+  comingSoon: true,
+  summary: 'Coming soon.',
+  highlights: ['Coming soon.'],
+})
+
+export const experiences: Experience[] = [
+  {
+    id: 'ploomba',
+    company: 'Ploomba',
+    role: 'Software Developer',
+    dates: '2025 — Present',
+    location: 'Remote',
+    letter: 'P',
+    href: 'https://www.ploomba.com/',
+    summary:
+      'Build product software for an agtech robotics startup, helping farms collect field data and plan harvests through connected hardware, forecasting, and a grower-facing app.',
+    highlights: [
+      'Ship features across Ploomba’s farming platform, from field data workflows to the grower-facing product.',
+      'Collaborate in a small startup team to turn product needs into usable interfaces and reliable backend work.',
+      'Help connect robot-captured field data to planning tools that farms can actually use.',
+    ],
+  },
+  ...[1, 2, 3, 4, 5, 6].map(comingSoonJob),
+]
 
 export const SKILL_MAX_RANK = 5
 

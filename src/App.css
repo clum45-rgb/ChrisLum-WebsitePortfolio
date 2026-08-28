@@ -617,6 +617,24 @@
   pointer-events: auto;
 }
 
+.page-content.page-content--experience {
+  inset: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  max-height: none;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  transform: none;
+}
+
+.page-content--experience > * {
+  pointer-events: auto;
+}
+
 .skills-stage {
   position: relative;
   width: 100%;
@@ -2052,6 +2070,456 @@
   color: #111;
 }
 
+/* ── Experience job file ── */
+
+.job-file {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.job-file__empty {
+  margin: 18vh 0 0 6vw;
+  font-family: var(--hud-font);
+  font-size: 1.1rem;
+  color: var(--p5-white);
+}
+
+.job-file__tabs {
+  position: absolute;
+  top: 7.5vh;
+  left: 5.8vw;
+  z-index: 3;
+  display: flex;
+  gap: 0.85rem;
+  transform: rotate(-6deg);
+}
+
+.job-file__roster {
+  position: absolute;
+  top: 16vh;
+  left: 4.6vw;
+  width: min(28vw, 340px);
+  max-height: 74vh;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  z-index: 2;
+  overflow-x: visible;
+  overflow-y: auto;
+  transform: rotate(-5deg);
+  transform-origin: top left;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(180, 180, 180, 0.45) transparent;
+}
+
+.job-card {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  color: inherit;
+  font: inherit;
+}
+
+.job-card:nth-child(even) {
+  margin-left: 0.55rem;
+}
+
+.job-card__plate {
+  width: 100%;
+  height: 3.85rem;
+  filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.45));
+}
+
+.job-card__plate .quad-plate__outline {
+  fill: var(--p5-red);
+  transform: none;
+}
+
+.job-card__plate .quad-plate__fill {
+  fill: var(--p5-black);
+}
+
+.job-card.is-selected .job-card__plate .quad-plate__fill {
+  fill: var(--p5-red);
+}
+
+.job-card__plate .quad-plate__content {
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.7rem;
+  padding: 0.3rem 1rem 0.35rem 0.75rem;
+}
+
+.job-card:focus-visible .job-card__plate .quad-plate__fill {
+  filter: drop-shadow(0 0 8px #fff);
+}
+
+.job-card__mark {
+  display: grid;
+  place-items: center;
+  width: 1.85rem;
+  height: 1.85rem;
+  flex-shrink: 0;
+  background: var(--p5-cyan);
+  color: #111;
+  font-family: var(--banner-font);
+  font-size: 1.15rem;
+  clip-path: polygon(8% 0, 100% 10%, 88% 100%, 0 90%);
+}
+
+.job-card.is-selected .job-card__mark {
+  background: #111;
+  color: var(--p5-cyan);
+}
+
+.job-card__copy {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.job-card__company {
+  font-family: var(--banner-font);
+  font-size: 1.2rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--p5-white);
+  line-height: 1;
+}
+
+.job-card__dates {
+  margin-top: 0.2rem;
+  font-family: var(--hud-font);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(244, 244, 244, 0.72);
+}
+
+.job-card.is-selected .job-card__dates {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.job-card.is-soon {
+  opacity: 0.58;
+}
+
+.job-card.is-soon.is-selected {
+  opacity: 0.82;
+}
+
+.job-card.is-soon .job-card__plate .quad-plate__outline {
+  fill: #6a6a6a;
+}
+
+.job-card.is-soon .job-card__plate .quad-plate__fill {
+  fill: #1f1f1f;
+}
+
+.job-card.is-soon.is-selected .job-card__plate .quad-plate__fill {
+  fill: #3a3a3a;
+}
+
+.job-card.is-soon .job-card__mark {
+  background: #8a8a8a;
+  color: #161616;
+}
+
+.job-card.is-soon.is-selected .job-card__mark {
+  background: #161616;
+  color: #9a9a9a;
+}
+
+.job-card.is-soon .job-card__company {
+  color: #b0b0b0;
+}
+
+.job-card.is-soon .job-card__dates,
+.job-card.is-soon.is-selected .job-card__dates {
+  color: rgba(176, 176, 176, 0.72);
+}
+
+.job-dossier {
+  position: absolute;
+  top: 11vh;
+  left: calc(4.6vw + min(28vw, 340px) + 2.2vw);
+  right: 4vw;
+  bottom: 6vh;
+  transform: rotate(-2.5deg);
+  transform-origin: top left;
+}
+
+.job-dossier__head {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  margin-bottom: 0.55rem;
+}
+
+.job-dossier__logo {
+  width: 5.6rem;
+  height: 5.4rem;
+  flex-shrink: 0;
+  filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.45));
+}
+
+.job-dossier__logo .quad-plate__outline {
+  fill: var(--p5-red);
+  transform: none;
+}
+
+.job-dossier__logo .quad-plate__fill {
+  fill: var(--p5-black);
+}
+
+.job-dossier__logo .quad-plate__content {
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem;
+}
+
+.job-dossier__logo span {
+  font-family: var(--banner-font);
+  font-size: 2.4rem;
+  line-height: 1;
+  color: var(--p5-cyan);
+}
+
+.job-dossier__logo img {
+  width: 72%;
+  height: 72%;
+  object-fit: contain;
+}
+
+.job-dossier__titles {
+  display: flex;
+  flex-direction: column;
+  gap: 0.18rem;
+  min-width: 0;
+}
+
+.job-dossier__num {
+  width: 5.4rem;
+  height: 2.4rem;
+  filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.4));
+}
+
+.job-dossier__num .quad-plate__outline {
+  fill: var(--p5-red);
+  transform: none;
+}
+
+.job-dossier__num .quad-plate__fill {
+  fill: var(--p5-black);
+}
+
+.job-dossier__num .quad-plate__content {
+  align-items: center;
+  justify-content: center;
+}
+
+.job-dossier__num span {
+  font-family: var(--banner-font);
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  color: var(--p5-cyan);
+}
+
+.job-dossier__company {
+  width: min(36vw, 460px);
+  height: 4.4rem;
+  filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.45));
+}
+
+.job-dossier__company .quad-plate__outline {
+  fill: var(--p5-red);
+  transform: none;
+}
+
+.job-dossier__company .quad-plate__fill {
+  fill: var(--p5-black);
+}
+
+.job-dossier__company .quad-plate__content {
+  justify-content: center;
+  padding: 0.3rem 1.2rem 0.35rem 1.05rem;
+}
+
+.job-dossier__company h2 {
+  margin: 0;
+  font-family: var(--banner-font);
+  font-size: clamp(1.9rem, 4vw, 3.1rem);
+  line-height: 0.9;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--p5-cyan);
+}
+
+.job-dossier__role {
+  width: min(32vw, 390px);
+  height: 2.7rem;
+  filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.4));
+}
+
+.job-dossier__role .quad-plate__outline {
+  fill: var(--p5-red);
+  transform: none;
+}
+
+.job-dossier__role .quad-plate__fill {
+  fill: var(--p5-black);
+}
+
+.job-dossier__role .quad-plate__content {
+  justify-content: center;
+  padding: 0.2rem 1.1rem 0.25rem 0.95rem;
+}
+
+.job-dossier__role p {
+  margin: 0;
+  font-family: var(--hud-font);
+  font-size: clamp(0.92rem, 1.5vw, 1.15rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--p5-white);
+}
+
+.job-dossier__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0 0 0.7rem;
+  padding: 0;
+  list-style: none;
+}
+
+.job-meta-tag {
+  width: 9.4rem;
+  height: 1.9rem;
+}
+
+.job-dossier__box {
+  width: min(52vw, 680px);
+  height: min(46vh, 390px);
+  filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.45));
+}
+
+.job-dossier__box .quad-plate__outline {
+  fill: var(--p5-red);
+  transform: none;
+}
+
+.job-dossier__box .quad-plate__fill {
+  fill: var(--p5-black);
+}
+
+.job-dossier__box .quad-plate__content {
+  padding: 1.45rem 1.9rem 1.3rem 1.6rem;
+}
+
+.job-dossier__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  height: 100%;
+  min-height: 0;
+}
+
+.job-dossier__soon {
+  margin: auto;
+  font-family: var(--banner-font);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--p5-cyan);
+  text-align: center;
+  transform: rotate(-3deg);
+}
+
+.job-dossier.is-soon {
+  opacity: 0.62;
+}
+
+.job-dossier.is-soon .quad-plate__outline {
+  fill: #6a6a6a;
+}
+
+.job-dossier.is-soon .job-dossier__logo span,
+.job-dossier.is-soon .job-dossier__num span,
+.job-dossier.is-soon .job-dossier__company h2,
+.job-dossier.is-soon .job-dossier__soon {
+  color: #9c9c9c;
+}
+
+.job-dossier.is-soon .job-dossier__role p,
+.job-dossier.is-soon .persona-tag span {
+  color: #8d8d8d;
+}
+
+.job-dossier__summary {
+  margin: 0;
+  font-family: var(--hud-font);
+  font-size: clamp(0.92rem, 1.25vw, 1.08rem);
+  line-height: 1.5;
+  color: var(--p5-white);
+}
+
+.job-dossier__duties {
+  margin: 0.1rem 0 0;
+  font-family: var(--banner-font);
+  font-size: 1.05rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--p5-red);
+}
+
+.job-dossier__bullets {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-y: auto;
+  flex: 1 1 auto;
+  min-height: 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--p5-red) transparent;
+}
+
+.job-dossier__bullets li {
+  position: relative;
+  margin: 0 0 0.55rem;
+  padding-left: 1.15rem;
+  font-family: var(--hud-font);
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: var(--p5-white);
+}
+
+.job-dossier__bullets li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.35rem;
+  width: 0;
+  height: 0;
+  border-top: 0.32rem solid transparent;
+  border-bottom: 0.32rem solid transparent;
+  border-left: 0.55rem solid var(--p5-red);
+}
+
+.job-dossier__link {
+  flex-shrink: 0;
+  margin-top: auto;
+}
+
 .section-panel__footer {
   margin: 1.4rem 0 0;
   font-family: var(--hud-font);
@@ -2210,6 +2678,63 @@
     height: 100%;
     overflow: visible;
     transform: none;
+  }
+
+  .page-content.page-content--experience {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    max-height: none;
+    height: 100%;
+    overflow: visible;
+    transform: none;
+  }
+
+  .job-file__tabs {
+    top: 8.5vh;
+    left: 4vw;
+  }
+
+  .job-file__roster {
+    top: 13vh;
+    left: 3.5vw;
+    right: 3.5vw;
+    width: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    transform: rotate(-2deg);
+  }
+
+  .job-card {
+    width: min(46vw, 220px);
+  }
+
+  .job-card:nth-child(even) {
+    margin-left: 0;
+  }
+
+  .job-dossier {
+    top: 28vh;
+    left: 3.5vw;
+    right: 3.5vw;
+    bottom: 6vh;
+    transform: none;
+  }
+
+  .job-dossier__company {
+    width: min(58vw, 320px);
+    height: 3.6rem;
+  }
+
+  .job-dossier__role {
+    width: min(54vw, 280px);
+  }
+
+  .job-dossier__box {
+    width: 100%;
+    height: min(48vh, 320px);
   }
 
   .persona__tabs {

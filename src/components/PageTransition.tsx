@@ -121,9 +121,10 @@ export function PageTransition({ children }: PageTransitionProps) {
   const isSkills = location.pathname === '/skills'
   const isContact = location.pathname === '/contact'
   const isProjects = location.pathname === '/projects'
+  const isExperience = location.pathname === '/experience'
   const isMobile = useMediaQuery('(max-width: 768px)')
   const variants =
-    isAbout || isSkills || isContact || isProjects
+    isAbout || isSkills || isContact || isProjects || isExperience
       ? aboutVariants
       : isMobile
         ? contentVariantsMobile
@@ -135,6 +136,7 @@ export function PageTransition({ children }: PageTransitionProps) {
     isSkills && 'page-content--skills',
     isContact && 'page-content--contact',
     isProjects && 'page-content--projects',
+    isExperience && 'page-content--experience',
   ]
     .filter(Boolean)
     .join(' ')

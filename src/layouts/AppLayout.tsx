@@ -23,6 +23,7 @@ export function AppLayout() {
   const isAbout = location.pathname === '/about'
   const isContact = location.pathname === '/contact'
   const isProjects = location.pathname === '/projects'
+  const isExperience = location.pathname === '/experience'
 
   useEffect(() => {
     if (onSectionPage) {
@@ -35,7 +36,7 @@ export function AppLayout() {
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if ((isContact || isProjects) && event.key !== 'Escape') {
+      if ((isContact || isProjects || isExperience) && event.key !== 'Escape') {
         return
       }
 
@@ -71,7 +72,7 @@ export function AppLayout() {
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [selectedIndex, onSectionPage, isContact, isProjects, navigate])
+  }, [selectedIndex, onSectionPage, isContact, isProjects, isExperience, navigate])
 
   return (
     <div
