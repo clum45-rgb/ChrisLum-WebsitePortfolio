@@ -1,12 +1,12 @@
 export const site = {
-  name: 'Chris Lum',
-  hudName: 'Chris Lum',
-  hudCaption: 'Informatics @ UW',
+  name: 'Christopher Lum',
+  hudName: 'Christopher Lum',
+  hudCaption: 'Software Engineer',
   tagline: 'Informatics @ UW | Aspiring Software Developer',
   role: 'Data Science & Applied Mathematics',
   year: 'Year 3',
   blurb:
-    'An Informatics student at UW who spends free time shipping software and chasing better UX.',
+    'When I\'m not working I\'m probably playing pickleball, trying a new latte, or in the mountains hopefully snowboarding and not hiking. Don\'t be afraid to reach out (unless its hiking)!',
   photo: {
     src: `${import.meta.env.BASE_URL}images/profile.jpg`,
     alt: 'Photo of Christopher Lum',
@@ -15,7 +15,7 @@ export const site = {
     src: `${import.meta.env.BASE_URL}images/background.jpg`,
     alt: 'Christopher Lum at sunset',
   },
-  bio: "I'm a 3rd-year at the University of Washington with a passion for software development and user-centered design. I love solving complex problems and am eager to contribute my skills and develop through new challenges and experiences.",
+  bio: "Hello! I am currently studying Informatics & Applied Math at UW with a desire to solve problems through software and AI. On the side I like to build projects that make my own life a little easier, and may be useful to others as well!",
   email: 'clum45@uw.edu',
   github: 'https://github.com/clum45-rgb',
   linkedin: 'https://www.linkedin.com/in/christopher-s-lum/',
@@ -25,6 +25,9 @@ export const site = {
 export type Project = {
   id: string
   title: string
+  heading?: string
+  blurb: string
+  tech: string[]
   description: string
   note?: string
   linkLabel: string
@@ -38,6 +41,8 @@ export const projects: Project[] = [
   {
     id: 'eats',
     title: 'Eats',
+    blurb: 'Turns a fridge photo into recipes you can cook tonight.',
+    tech: ['Next.js', 'OpenAI', 'PostgreSQL', 'Supabase'],
     description:
       'Eats is an AI-powered food inventory app I built for college students who want to cook with whatever is already in the fridge. Users photograph their groceries, and an image-processing plus LLM pipeline identifies and normalizes ingredients into a live inventory. From there, a recommendation engine uses vector embeddings and ranking to match recipes to what they actually have, with a shopping list to fill in the gaps. Inventory, recipes, and ingredient relationships are stored in PostgreSQL on Supabase.',
     linkLabel: 'View Project',
@@ -47,6 +52,8 @@ export const projects: Project[] = [
   {
     id: 'lumis',
     title: 'Lumis',
+    blurb: 'Turns one personal goal into a ranked, AI-coached grind.',
+    tech: ['Next.js', 'OpenAI', 'PostgreSQL', 'Supabase'],
     description:
       'Lumis is a self-improvement platform I built that turns a single personal goal into a game-like ranked progression system. After a user defines a goal, OpenAI generates a personalized roadmap, then the app tracks weekly momentum with progress scores, rank updates, and a coaching chatbot that knows their habits. User actions and weekly progress live in a PostgreSQL data model on Supabase, and a server-side scoring pipeline calculates weekly scores, updates ranks, and detects stagnation so coaching can adapt.',
     linkLabel: 'View Project',
@@ -56,6 +63,8 @@ export const projects: Project[] = [
   {
     id: 'clubhub',
     title: 'ClubHub',
+    blurb: 'Finds campus club events by reading Instagram posts with AI.',
+    tech: ['React', 'AWS', 'Bedrock', 'Meta API'],
     description:
       'Me and my DubHacks team built ClubHub using Meta’s official API to connect with Instagram professional accounts run by campus clubs. When a user enters a club’s handle, our system scrapes posts from the past thirty days—analyzing both captions and event graphics—and converts the data into JSON files stored in an AWS S3 bucket. Using Amazon Bedrock, we process these files to filter for only upcoming events and extract key metadata such as the event name, date, time, location, and description. This information is then fed into our frontend, a React-based dashboard designed in Figma, where users can explore clubs and view upcoming events tailored to their interests. The platform also allows RSOs to build and manage their profiles, making club discovery and involvement centralized and up to date.',
     note: 'We built this on AWS during our hackathon so we lost our Amazon Bedrock access. However, we are currently working to redeploy the project on another server using ChatGPT for inference, and will update the link when it’s live! Our Figma prototype is still available to view.',
@@ -70,6 +79,9 @@ export const projects: Project[] = [
   {
     id: 'unemployment',
     title: 'Impact of Population on Unemployment Analysis',
+    heading: 'Unemployment',
+    blurb: 'Charts how population density lines up with U.S. jobless rates.',
+    tech: ['R', 'ggplot', 'Quarto'],
     description:
       'For my class project, me and my group looked at U.S. unemployment and population data to see how things like population density might affect job rates. Using R and ggplot, I built interactive charts, scatterplots, heatmaps, and histograms to spot patterns across states. It is all wrapped up into a Quarto doc and I found a 15% correlation between how populated a place is and how many people are out of work.',
     linkLabel: 'View Project',
@@ -83,6 +95,9 @@ export const projects: Project[] = [
   {
     id: 'pathfinder',
     title: 'Pathfinder UW',
+    heading: 'Pathfinder',
+    blurb: 'Helps new hikers pick trails, pack right, and stay safe.',
+    tech: ['Figma', 'HTML', 'CSS'],
     description:
       'Pathfinder is a comprehensive website tailored to new hikers, designed to centralize resources and provide an interactive and engaging experience. The website has three primary sections: Trail Recommendations, Safety and Preparation, and Community Feedback. The Trail Recommendations section features filters for location, difficulty, altitude, and length, making it easier for users to discover hikes suited to their preferences and needs. The Safety and Preparation section consists of tips on selecting suitable gear, preparing for weather conditions, and links to CPR and first aid courses available online or in their area. Finally, the Community Feedback tab serves as a platform for hikers to share stories, ask questions, and learn from each other’s experiences. It supports beginner hikers in building confidence, fostering connections, and enjoying the outdoors safely and responsibly.',
     linkLabel: 'View Prototype',
@@ -98,6 +113,9 @@ export const projects: Project[] = [
   {
     id: 'study-spot',
     title: 'Find a Study Spot UW',
+    heading: 'Study Spot',
+    blurb: 'Finds quiet UW study spaces by noise, crowd, and hours.',
+    tech: ['Figma', 'User Research'],
     description:
       'I designed a mobile app prototype in Figma to help UW students locate ideal study spaces using real-time filters like noise level, crowd size, and hours. Integrated interactive maps and personalization features, and validated the design through user interviews and iterative feedback.',
     linkLabel: 'View Prototype',
