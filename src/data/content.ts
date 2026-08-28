@@ -3,15 +3,19 @@ export const site = {
   hudName: 'Chris Lum',
   hudCaption: 'Informatics @ UW',
   tagline: 'Informatics @ UW | Aspiring Software Developer',
+  role: 'Data Science & Applied Mathematics',
+  year: 'Year 3',
+  blurb:
+    'An Informatics student at UW who spends free time shipping software and chasing better UX.',
   photo: {
     src: `${import.meta.env.BASE_URL}images/profile.jpg`,
-    alt: 'Photo of Christopher',
+    alt: 'Photo of Christopher Lum',
   },
   background: {
     src: `${import.meta.env.BASE_URL}images/background.jpg`,
     alt: 'Christopher Lum at sunset',
   },
-  bio: "I'm a 2nd-Year at the University of Washington with a passion for software development and user-centered design. I love solving complex problems and am eager to contribute my skills and develop through new challenges and experiences.",
+  bio: "I'm a 3rd-year at the University of Washington with a passion for software development and user-centered design. I love solving complex problems and am eager to contribute my skills and develop through new challenges and experiences.",
   email: 'clum45@uw.edu',
   github: 'https://github.com/clum45-rgb',
   linkedin: 'https://www.linkedin.com/in/christopher-s-lum/',
