@@ -36,6 +36,24 @@ const image = (file: string) => `${import.meta.env.BASE_URL}images/${file}`
 
 export const projects: Project[] = [
   {
+    id: 'eats',
+    title: 'Eats',
+    description:
+      'Eats is an AI-powered food inventory app I built for college students who want to cook with whatever is already in the fridge. Users photograph their groceries, and an image-processing plus LLM pipeline identifies and normalizes ingredients into a live inventory. From there, a recommendation engine uses vector embeddings and ranking to match recipes to what they actually have, with a shopping list to fill in the gaps. Inventory, recipes, and ingredient relationships are stored in PostgreSQL on Supabase.',
+    linkLabel: 'View Project',
+    href: 'https://github.com/clum45-rgb/eats',
+    images: [],
+  },
+  {
+    id: 'lumis',
+    title: 'Lumis',
+    description:
+      'Lumis is a self-improvement platform I built that turns a single personal goal into a game-like ranked progression system. After a user defines a goal, OpenAI generates a personalized roadmap, then the app tracks weekly momentum with progress scores, rank updates, and a coaching chatbot that knows their habits. User actions and weekly progress live in a PostgreSQL data model on Supabase, and a server-side scoring pipeline calculates weekly scores, updates ranks, and detects stagnation so coaching can adapt.',
+    linkLabel: 'View Project',
+    href: 'https://github.com/clum45-rgb/lumis',
+    images: [],
+  },
+  {
     id: 'clubhub',
     title: 'ClubHub',
     description:
