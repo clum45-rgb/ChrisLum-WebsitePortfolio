@@ -34,7 +34,7 @@ export function AboutSection() {
             outline={confidantShapes.bubble.outline}
             fill={confidantShapes.bubble.fill}
           >
-            <AboutBlurb text={slide.text} onNext={showNext} />
+            <AboutBlurb key={index} text={slide.text} onNext={showNext} />
           </QuadPlate>
           <span className="chat-bubble__tail" aria-hidden="true" />
           <span className="chat-bubble__tail-ink" aria-hidden="true" />

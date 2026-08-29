@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import aboutBlurbs from '../data/aboutBlurbs.json'
 
 export type AboutSlide = {
@@ -55,22 +55,87 @@ export function useAboutCarousel() {
   }
 }
 
+const TYPE_MS = 26
+
+function usePrefersReducedMotion() {
+  const [reduced, setReduced] = useState(
+    () =>
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+  )
+
+  useEffect(() => {
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const onChange = () => setReduced(media.matches)
+    media.addEventListener('change', onChange)
+    return () => media.removeEventListener('change', onChange)
+  }, [])
+
+  return reduced
+}
+
 type AboutBlurbProps = {
   text: string
   onNext: () => void
 }
 
 export function AboutBlurb({ text, onNext }: AboutBlurbProps) {
+  const reducedMotion = usePrefersReducedMotion()
+  const [shown, setShown] = useState(() =>
+    reducedMotion ? text.length : 0,
+  )
+  const typing = shown < text.length
+
+  useEffect(() => {
+    if (reducedMotion) {
+      setShown(text.length)
+    }
+  }, [reducedMotion, text.length])
+
+  useEffect(() => {
+    if (reducedMotion || shown >= text.length) {
+      return
+    }
+
+    const id = window.setTimeout(() => {
+      setShown((count) => Math.min(count + 1, text.length))
+    }, TYPE_MS)
+
+    return () => window.clearTimeout(id)
+  }, [reducedMotion, shown, text.length])
+
+  const onClick = () => {
+    if (typing) {
+      setShown(text.length)
+      return
+    }
+
+    onNext()
+  }
+
   return (
     <>
-      <p className="chat-bubble__text">{text}</p>
+      <p className="chat-bubble__text">
+        <span className="chat-bubble__text-ghost" aria-hidden="true">
+          {text}
+        </span>
+        <span className="chat-bubble__text-live">{text.slice(0, shown)}</span>
+      </p>
       <button
         type="button"
-        className="chat-bubble__next"
-        onClick={onNext}
-        aria-label="Next message"
+        className={['chat-bubble__next', typing && 'is-typing']
+          .filter(Boolean)
+          .join(' ')}
+        onClick={onClick}
+        aria-label={typing ? 'Skip typing' : 'Next message'}
       >
-        <span className="chat-bubble__next-caret" aria-hidden="true" />
+        {typing ? (
+          <span className="chat-bubble__next-wait" aria-hidden="true">
+            ...
+          </span>
+        ) : (
+          <span className="chat-bubble__next-caret" aria-hidden="true" />
+        )}
       </button>
     </>
   )
