@@ -1134,9 +1134,10 @@
   left: 50%;
   bottom: 27%;
   z-index: 4;
-  width: 2.4rem;
+  width: auto;
+  min-width: 2.4rem;
   height: 1.7rem;
-  padding: 0;
+  padding: 0 0.2rem;
   border: none;
   background: none;
   cursor: pointer;
@@ -1144,41 +1145,38 @@
 }
 
 .chat-bubble__next.is-typing {
-  width: 2.8rem;
+  min-width: 2.8rem;
 }
 
-.chat-bubble__next-wait {
+.chat-bubble__next-wait,
+.chat-bubble__next-label {
   display: block;
   font-family: var(--hud-font);
-  font-size: 1.28rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
-  line-height: 1.7rem;
   color: var(--p5-white);
   text-shadow: 0 1px 0 #111;
   animation: chat-bubble-next-bounce 0.9s ease-in-out infinite;
 }
 
+.chat-bubble__next-wait {
+  font-size: 1.28rem;
+  letter-spacing: 0.08em;
+  line-height: 1.7rem;
+}
+
+.chat-bubble__next-label {
+  font-size: 0.92rem;
+  letter-spacing: 0.08em;
+  line-height: 1.7rem;
+  text-transform: lowercase;
+  white-space: nowrap;
+}
+
 .chat-bubble__next:hover .chat-bubble__next-wait,
-.chat-bubble__next:focus-visible .chat-bubble__next-wait {
+.chat-bubble__next:focus-visible .chat-bubble__next-wait,
+.chat-bubble__next:hover .chat-bubble__next-label,
+.chat-bubble__next:focus-visible .chat-bubble__next-label {
   color: var(--p5-red);
-}
-
-.chat-bubble__next-caret {
-  display: block;
-  width: 0;
-  height: 0;
-  margin: 0 auto;
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-top: 11px solid var(--p5-white);
-  filter: drop-shadow(0 1px 0 #111);
-  animation: chat-bubble-next-bounce 0.9s ease-in-out infinite;
-}
-
-.chat-bubble__next:hover .chat-bubble__next-caret,
-.chat-bubble__next:focus-visible .chat-bubble__next-caret {
-  border-top-color: var(--p5-red);
 }
 
 .chat-bubble__next:focus-visible {
@@ -4239,8 +4237,8 @@
   .persona-gallery__shot img,
   .persona-gallery__shot::after,
   .persona-cta,
-  .chat-bubble__next-caret,
-  .chat-bubble__next-wait {
+  .chat-bubble__next-wait,
+  .chat-bubble__next-label {
     transition: none;
     animation: none;
   }

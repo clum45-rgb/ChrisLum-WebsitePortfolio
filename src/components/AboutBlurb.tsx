@@ -127,14 +127,14 @@ export function AboutBlurb({ text, onNext }: AboutBlurbProps) {
           .filter(Boolean)
           .join(' ')}
         onClick={onClick}
-        aria-label={typing ? 'Skip typing' : 'Next message'}
+        aria-label={typing ? 'Skip typing' : 'Click me'}
       >
         {typing ? (
           <span className="chat-bubble__next-wait" aria-hidden="true">
             ...
           </span>
         ) : (
-          <span className="chat-bubble__next-caret" aria-hidden="true" />
+          <span className="chat-bubble__next-label">click me</span>
         )}
       </button>
     </>
