@@ -8,7 +8,7 @@ export type AboutSlide = {
   alt?: string
 }
 
-const slides: AboutSlide[] = aboutBlurbs
+const slides = aboutBlurbs as AboutSlide[]
 const STORAGE_KEY = 'about-blurb-index'
 
 function readLastIndex() {
