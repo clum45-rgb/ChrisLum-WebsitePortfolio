@@ -2,6 +2,7 @@
   --p5-red: #e10600;
   --p5-black: #111;
   --p5-white: #f4f4f4;
+  --p5-copy: #c4c4c4;
   --p5-gold: #f2d04a;
   --p5-cyan: #3ee7ff;
   --banner-font: 'Anton', 'Impact', sans-serif;
@@ -1479,7 +1480,7 @@
   font-weight: 600;
   letter-spacing: 0.02em;
   line-height: 1.52;
-  color: var(--p5-white);
+  color: var(--p5-copy);
   scrollbar-width: thin;
   scrollbar-color: var(--p5-white) transparent;
 }
@@ -1491,7 +1492,7 @@
   margin-right: 0.55rem;
   border-top: 6px solid transparent;
   border-bottom: 6px solid transparent;
-  border-left: 9px solid var(--p5-white);
+  border-left: 9px solid var(--p5-copy);
   transform: translateY(-1px);
 }
 
@@ -2822,7 +2823,7 @@
   font-weight: 600;
   letter-spacing: 0.02em;
   line-height: 1.58;
-  color: var(--p5-white);
+  color: var(--p5-copy);
 }
 
 .persona-box__note {
@@ -3569,7 +3570,7 @@
   font-weight: 600;
   letter-spacing: 0.03em;
   line-height: 1.66;
-  color: var(--p5-white);
+  color: var(--p5-copy);
   scrollbar-width: thin;
   scrollbar-color: var(--p5-white) transparent;
 }
@@ -3612,7 +3613,7 @@
   font-weight: 600;
   letter-spacing: 0.03em;
   line-height: 1.64;
-  color: var(--p5-white);
+  color: var(--p5-copy);
 }
 
 .job-dossier__bullets li::before {
@@ -3624,7 +3625,7 @@
   height: 0;
   border-top: 0.38rem solid transparent;
   border-bottom: 0.38rem solid transparent;
-  border-left: 0.64rem solid var(--p5-white);
+  border-left: 0.64rem solid var(--p5-copy);
 }
 
 .section-panel__footer {
