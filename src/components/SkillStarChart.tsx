@@ -140,7 +140,12 @@ export function SkillStarChart() {
         {skillStats.map((stat, index) => (
           <li
             key={stat.id}
-            className="skill-star__label"
+            className={[
+              'skill-star__label',
+              stat.level === SKILL_MAX_RANK && 'skill-star__label--max',
+            ]
+              .filter(Boolean)
+              .join(' ')}
             style={
               {
                 '--angle': `${index * 72}deg`,
