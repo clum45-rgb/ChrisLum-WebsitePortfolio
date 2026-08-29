@@ -279,11 +279,46 @@
 }
 
 @media (max-width: 850px) {
+  html,
+  body,
+  #root {
+    height: auto;
+    min-height: 100svh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  body {
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .app {
+    overflow: visible;
+    height: auto;
+    min-height: 100svh;
+  }
+
+  .app__ui {
+    height: auto;
+    min-height: 100svh;
+  }
+
+  .battle-menu {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: auto;
+    min-height: 100svh;
+  }
+
   .battle-menu__stage {
     left: 0;
     bottom: 0;
     width: 100%;
-    height: 100%;
+    height: auto;
+    min-height: 100svh;
     margin-left: 0;
     transform: none;
     display: flex;
@@ -370,9 +405,26 @@
   .banner__sub {
     display: none;
   }
-}
 
-.banner.is-selected .banner__shape--red,
+  .page-content.page-content--about,
+  .page-content.page-content--skills,
+  .page-content.page-content--contact,
+  .page-content.page-content--projects,
+  .page-content.page-content--experience {
+    position: relative;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    width: 100%;
+    max-height: none;
+    height: auto;
+    min-height: 100svh;
+    overflow: visible;
+    pointer-events: auto;
+    transform: none;
+  }
+}
 .banner:hover .banner__shape--red {
   transform: translate(var(--shard-x), var(--shard-y)) scale(1.06);
 }
@@ -3783,13 +3835,17 @@
   .page-content.page-content--contact,
   .page-content.page-content--projects,
   .page-content.page-content--experience {
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    position: relative;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
     width: 100%;
     max-height: none;
-    height: 100%;
+    height: auto;
+    min-height: 100svh;
+    overflow: visible;
+    pointer-events: auto;
     transform: none;
   }
 
