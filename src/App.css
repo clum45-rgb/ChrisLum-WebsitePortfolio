@@ -10,6 +10,9 @@
   --jp-font: 'Noto Sans JP', sans-serif;
   --hud-font: 'Oswald', 'Segoe UI', sans-serif;
   --snappy: 160ms cubic-bezier(0.34, 1.4, 0.64, 1);
+  --stage-w: 1920px;
+  --stage-h: 1080px;
+  --hud-scale: min(1, 100vw / 1920px, 100svh / 1080px);
 }
 
 .app {
@@ -39,13 +42,19 @@
 }
 
 .app--about .portrait {
-  filter: saturate(0.82) contrast(1.08) brightness(0.52);
+  filter: saturate(0.7) contrast(1.08) brightness(0.24);
 }
 
 .app--panel-open .stage__vignette {
   background:
     radial-gradient(ellipse at 50% 62%, rgba(0, 0, 0, 0.18) 22%, rgba(0, 0, 0, 0.48) 72%, rgba(0, 0, 0, 0.72) 100%),
     linear-gradient(90deg, rgba(0, 0, 0, 0.38) 0%, transparent 24%, transparent 76%, rgba(0, 0, 0, 0.38) 100%);
+}
+
+.app--about .stage__vignette {
+  background:
+    radial-gradient(ellipse at 50% 62%, rgba(0, 0, 0, 0.32) 16%, rgba(0, 0, 0, 0.66) 66%, rgba(0, 0, 0, 0.86) 100%),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.52) 0%, transparent 24%, transparent 76%, rgba(0, 0, 0, 0.52) 100%);
 }
 
 .app--panel-open .battle-menu {
@@ -135,6 +144,22 @@
   transition: opacity 220ms ease;
 }
 
+.battle-menu__stage {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: var(--stage-w);
+  height: var(--stage-h);
+  margin-left: calc(var(--stage-w) / -2);
+  transform: scale(var(--hud-scale));
+  transform-origin: 50% 100%;
+  pointer-events: none;
+}
+
+.banner-stack {
+  display: contents;
+}
+
 .banner-wrap {
   position: absolute;
   pointer-events: none;
@@ -146,47 +171,42 @@
 }
 
 .banner-wrap--tl {
-  top: 22vh;
+  top: 22%;
   left: 19%;
-  width: clamp(5.6rem, 32vw, 500px);
-  max-width: calc(100vw - 19% - 10px);
-  height: clamp(3.1rem, 16vh, 158px);
+  width: 500px;
+  height: 158px;
   perspective-origin: 92% 50%;
 }
 
 .banner-wrap--bl {
-  top: 54vh;
+  top: 54%;
   left: 20%;
-  width: clamp(4.8rem, 25vw, 360px);
-  max-width: calc(100vw - 20% - 10px);
-  height: clamp(2.9rem, 13.5vh, 136px);
+  width: 360px;
+  height: 136px;
   perspective-origin: 90% 60%;
 }
 
 .banner-wrap--tr {
-  top: 16vh;
+  top: 16%;
   right: 26%;
-  width: clamp(5.4rem, 30vw, 460px);
-  max-width: calc(100vw - 26% - 10px);
-  height: clamp(3rem, 14.5vh, 148px);
+  width: 460px;
+  height: 148px;
   perspective-origin: 8% 40%;
 }
 
 .banner-wrap--mr {
-  top: 38vh;
+  top: 38%;
   right: 22%;
-  width: clamp(5.2rem, 29vw, 430px);
-  max-width: calc(100vw - 22% - 10px);
-  height: clamp(2.95rem, 14vh, 142px);
+  width: 430px;
+  height: 142px;
   perspective-origin: 10% 50%;
 }
 
 .banner-wrap--br {
-  top: 62vh;
+  top: 62%;
   right: 15%;
-  width: clamp(5.1rem, 28vw, 410px);
-  max-width: calc(100vw - 15% - 10px);
-  height: clamp(3rem, 14vh, 144px);
+  width: 410px;
+  height: 144px;
   perspective-origin: 12% 64%;
 }
 
@@ -258,7 +278,54 @@
   filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.55));
 }
 
-@media (max-width: 768px) {
+@media (max-width: 850px) {
+  .battle-menu__stage {
+    left: 0;@m
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    margin-left: 0;
+    transform: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 4.4rem 0.55rem 0;
+    box-sizing: border-box;
+  }
+
+  .banner-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0.42rem;
+    width: min(47vw, 280px);
+    pointer-events: none;
+  }
+
+  .banner-stack--left {
+    align-items: flex-start;
+  }
+
+  .banner-stack--right {
+    align-items: flex-end;
+  }
+
+  .banner-wrap,
+  .banner-wrap--tl,
+  .banner-wrap--bl,
+  .banner-wrap--tr,
+  .banner-wrap--mr,
+  .banner-wrap--br {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    width: 100%;
+    max-width: none;
+    height: clamp(3.05rem, 8.6vh, 4.4rem);
+    perspective: none;
+  }
+
   .banner--tl,
   .banner--bl,
   .banner--tr,
@@ -269,6 +336,26 @@
     --pitch: 0deg;
   }
 
+  .banner--tl {
+    --tilt: 7deg;
+  }
+
+  .banner--bl {
+    --tilt: -5deg;
+  }
+
+  .banner--tr {
+    --tilt: -8deg;
+  }
+
+  .banner--mr {
+    --tilt: 4deg;
+  }
+
+  .banner--br {
+    --tilt: -6deg;
+  }
+
   .banner,
   .banner.is-selected,
   .banner:hover {
@@ -277,7 +364,11 @@
 
   .banner.is-selected,
   .banner:hover {
-    transform: rotate(var(--tilt)) scale(1.03);
+    transform: rotate(var(--tilt)) scale(1.04);
+  }
+
+  .banner__sub {
+    display: none;
   }
 }
 
@@ -785,7 +876,7 @@
   align-items: end;
   width: 100%;
   height: 100%;
-  padding: 5.2rem 3vw 4rem;
+  padding: 5.2rem 10vw 4rem;
   box-sizing: border-box;
 }
 
@@ -1082,26 +1173,53 @@
   --pitch: 7deg;
   transform: rotate(var(--tilt)) rotateY(var(--yaw)) rotateX(var(--pitch));
   transform-origin: 40% 70%;
+  overflow: hidden;
+  clip-path: polygon(2% 8%, 100% 0, 96% 100%, 0 93%);
   z-index: 4;
 }
 
 .confidant-card__frame-layer {
   position: absolute;
   display: block;
+  pointer-events: none;
 }
 
 .confidant-card__frame-layer--white {
   inset: 0;
   background: #fff;
-  clip-path: polygon(2% 8%, 100% 0, 96% 100%, 0 93%);
-  z-index: 0;
+  clip-path: polygon(
+    evenodd,
+    2% 8%,
+    100% 0,
+    96% 100%,
+    0 93%,
+    2% 8%,
+    7.2% 13%,
+    93.4% 6.2%,
+    90.6% 93.2%,
+    6.2% 88.4%,
+    7.2% 13%
+  );
+  z-index: 3;
 }
 
 .confidant-card__frame-layer--dark {
-  inset: 5% 6% 5% 6%;
+  inset: 0;
   background: #111;
-  clip-path: polygon(3% 6%, 98% 2%, 97% 97%, 1% 94%);
-  z-index: 1;
+  clip-path: polygon(
+    evenodd,
+    7.2% 13%,
+    93.4% 6.2%,
+    90.6% 93.2%,
+    6.2% 88.4%,
+    7.2% 13%,
+    9.6% 15.6%,
+    90.8% 9.2%,
+    88.2% 90.4%,
+    8.6% 85.8%,
+    9.6% 15.6%
+  );
+  z-index: 2;
 }
 
 .confidant-card__photo {
@@ -1109,7 +1227,9 @@
   inset: 15% 12% 13% 13%;
   overflow: hidden;
   clip-path: polygon(4% 5%, 97% 3%, 96% 96%, 3% 94%);
-  z-index: 2;
+  transform: scale(1.32);
+  transform-origin: center center;
+  z-index: 1;
   background: #111;
 }
 
@@ -1851,11 +1971,17 @@
 }
 
 .skill-star__badge--max {
+  top: -0.8rem;
+  right: -1.65rem;
   width: auto;
   min-width: 2.55rem;
   padding: 0 0.28rem;
   font-size: 0.78rem;
   letter-spacing: 0.04em;
+}
+
+.skill-star__label--max .skill-star__plate {
+  padding-right: 1.25rem;
 }
 
 .skill-star__plate {
@@ -2183,7 +2309,7 @@
   z-index: 3;
   display: flex;
   align-items: center;
-  gap: 1.2rem;
+  gap: 1.65rem;
   transform: rotate(-6deg);
 }
 
@@ -2265,7 +2391,7 @@
 
 .persona__head {
   position: absolute;
-  top: 13vh;
+  top: 17vh;
   left: 5.5vw;
   display: flex;
   align-items: flex-start;
@@ -2902,6 +3028,7 @@
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: rgba(244, 244, 244, 0.72);
+  white-space: nowrap;
 }
 
 .job-card.is-selected .job-card__company {
@@ -3116,17 +3243,19 @@
 }
 
 .job-meta-tag {
-  width: 13.4rem;
+  width: 15.5rem;
   height: 2.75rem;
+  flex-shrink: 0;
 }
 
 .job-meta-tag .quad-plate__content {
-  padding: 0.18rem 0.85rem 0.2rem;
+  padding: 0.18rem 1.05rem 0.2rem;
 }
 
 .job-meta-tag span {
   font-size: 0.95rem;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
 }
 
 .job-dossier__panels {
@@ -3392,26 +3521,21 @@
   }
 }
 
-@media (max-width: 900px) {
-  .page-content.page-content--experience,
+@media (max-width: 1850px), (max-height: 820px) {
   .page-content.page-content--projects {
     overflow: auto;
   }
 
-  .job-file,
   .persona {
     display: flex;
     flex-direction: column;
     height: auto;
     min-height: 100%;
     overflow: visible;
-    padding: 6rem 0.9rem 4.6rem;
-    gap: 0.85rem;
+    padding: 6.2rem 0.9rem 4.6rem;
+    gap: 1.15rem;
   }
 
-  .job-file__tabs,
-  .job-file__roster,
-  .job-dossier,
   .persona__tabs,
   .persona__stage,
   .persona__head,
@@ -3433,13 +3557,120 @@
   .persona__stage {
     display: flex;
     flex-direction: column;
-    gap: 0.85rem;
+    gap: 1.15rem;
     height: auto;
     min-height: 0;
   }
 
-  .job-file__tabs,
   .persona__tabs {
+    transform: rotate(-4deg);
+    align-self: flex-start;
+    width: auto;
+    flex-shrink: 0;
+    z-index: 4;
+    order: -1;
+    gap: 1.15rem;
+  }
+
+  .persona__head {
+    transform: rotate(-3deg);
+  }
+
+  .persona-name {
+    width: min(92vw, 620px);
+    height: clamp(5.1rem, 16vw, 7.1rem);
+  }
+
+  .persona-name h2 {
+    font-size: clamp(1.4rem, 6.8vw, 2.85rem);
+  }
+
+  .persona-blurb {
+    max-width: min(88vw, 520px);
+  }
+
+  .persona-tags {
+    max-width: 100%;
+  }
+
+  .persona-tag:not(.job-meta-tag) {
+    width: min(7.4rem, 42vw);
+  }
+
+  .persona-box {
+    height: min(52vh, 380px);
+    transform: rotate(-1.5deg);
+  }
+
+  .persona-box .quad-plate__content {
+    padding: 2.55rem clamp(1.4rem, 3.2vw, 2.8rem) 0.45rem
+      clamp(1.35rem, 3vw, 2.6rem);
+  }
+
+  .persona-box__avoid {
+    display: none;
+  }
+
+  .persona-box .persona-cta {
+    align-self: center;
+    margin-bottom: -1.2rem;
+  }
+
+  .persona__media {
+    left: auto;
+    right: auto;
+    width: 100%;
+    height: auto;
+    gap: 0.9rem;
+  }
+
+  .persona-demo,
+  .persona-gallery {
+    width: 100%;
+    margin-left: 0;
+    height: min(38vh, 300px);
+    flex: 0 0 auto;
+  }
+
+  .persona-demo {
+    transform: rotate(1.2deg);
+  }
+
+  .persona-gallery {
+    transform: rotate(-1.2deg);
+  }
+}
+
+@media (max-width: 900px) {
+  .page-content.page-content--experience {
+    overflow: auto;
+  }
+
+  .job-file {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 100%;
+    overflow: visible;
+    padding: 6rem 0.9rem 4.6rem;
+    gap: 0.85rem;
+  }
+
+  .job-file__tabs,
+  .job-file__roster,
+  .job-dossier {
+    position: relative;
+    inset: auto;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    width: 100%;
+    max-width: 100%;
+    transform: none;
+  }
+
+  .job-file__tabs {
     transform: rotate(-4deg);
     align-self: flex-start;
     width: auto;
@@ -3458,6 +3689,11 @@
 
   .job-card {
     width: min(48vw, 260px);
+  }
+
+  .job-card__dates {
+    font-size: clamp(0.58rem, 2.6vw, 0.72rem);
+    letter-spacing: 0.04em;
   }
 
   .job-card:nth-child(even) {
@@ -3504,215 +3740,15 @@
   .job-dossier__role p {
     font-size: clamp(0.78rem, 2.4vw, 1.05rem);
   }
-
-  .persona__head {
-    transform: rotate(-3deg);
-  }
-
-  .persona-name {
-    width: min(92vw, 620px);
-    height: clamp(5.1rem, 16vw, 7.1rem);
-  }
-
-  .persona-name h2 {
-    font-size: clamp(1.4rem, 6.8vw, 2.85rem);
-  }
-
-  .persona-blurb {
-    max-width: min(88vw, 520px);
-  }
-
-  .persona-tags {
-    max-width: 100%;
-  }
-
-  .persona-tag {
-    width: min(7.4rem, 42vw);
-  }
-
-  .persona-box {
-    height: min(52vh, 380px);
-    transform: rotate(-1.5deg);
-  }
-
-  .persona-box .quad-plate__content {
-    padding: 2.55rem clamp(1.4rem, 3.2vw, 2.8rem) 0.45rem
-      clamp(1.35rem, 3vw, 2.6rem);
-  }
-
-  .persona-box__avoid {
-    display: none;
-  }
-
-  .persona-box .persona-cta {
-    align-self: center;
-    margin-bottom: -1.2rem;
-  }
-
-  .persona__media {
-    left: auto;
-    right: auto;
-    width: 100%;
-    height: auto;
-    gap: 0.75rem;
-  }
-
-  .persona-demo,
-  .persona-gallery {
-    width: 100%;
-    margin-left: 0;
-    height: min(38vh, 300px);
-    flex: 0 0 auto;
-  }
-
-  .persona-demo {
-    transform: rotate(1.2deg);
-  }
-
-  .persona-gallery {
-    transform: rotate(-1.2deg);
-  }
-}
-
-@media (max-height: 680px) and (min-width: 901px) {
-  .page-content.page-content--projects {
-    overflow: auto;
-  }
-
-  .persona {
-    display: flex;
-    flex-direction: column;
-    height: auto;
-    min-height: 100%;
-    overflow: visible;
-    padding: 6rem 0.9rem 4.6rem;
-    gap: 0.85rem;
-  }
-
-  .persona__tabs,
-  .persona__stage,
-  .persona__head,
-  .persona-box,
-  .persona__media,
-  .persona-demo,
-  .persona-gallery {
-    position: relative;
-    inset: auto;
-    top: auto;
-    right: auto;
-    bottom: auto;
-    left: auto;
-    width: 100%;
-    max-width: 100%;
-    transform: none;
-  }
-
-  .persona__stage {
-    display: flex;
-    flex-direction: column;
-    gap: 0.85rem;
-    height: auto;
-    min-height: 0;
-  }
-
-  .persona__tabs {
-    transform: rotate(-4deg);
-    align-self: flex-start;
-    width: auto;
-    flex-shrink: 0;
-    z-index: 4;
-    order: -1;
-  }
-
-  .persona-box {
-    height: min(52vh, 380px);
-    transform: rotate(-1.5deg);
-  }
-
-  .persona-box .quad-plate__content {
-    padding: 2.55rem clamp(1.4rem, 3.2vw, 2.8rem) 0.45rem
-      clamp(1.35rem, 3vw, 2.6rem);
-  }
-
-  .persona-box__avoid {
-    display: none;
-  }
-
-  .persona-box .persona-cta {
-    align-self: center;
-    margin-bottom: -1.2rem;
-  }
-
-  .persona__media {
-    left: auto;
-    right: auto;
-    width: 100%;
-    height: auto;
-    gap: 0.75rem;
-  }
-
-  .persona-demo,
-  .persona-gallery {
-    width: 100%;
-    margin-left: 0;
-    height: min(38vh, 300px);
-    flex: 0 0 auto;
-  }
-
-  .persona-demo {
-    transform: rotate(1.2deg);
-  }
-
-  .persona-gallery {
-    transform: rotate(-1.2deg);
-  }
 }
 
 @media (max-width: 700px) {
   .banner-wrap {
     perspective: none;
   }
-
-  .banner--tl,
-  .banner--bl,
-  .banner--tr,
-  .banner--mr,
-  .banner--br {
-    --yaw: 0deg;
-    --pitch: 0deg;
-    --origin: 50% 50%;
-  }
-
-  .banner--tl {
-    --tilt: 12deg;
-  }
-
-  .banner--bl {
-    --tilt: -4deg;
-  }
-
-  .banner--tr {
-    --tilt: -12deg;
-  }
-
-  .banner--mr {
-    --tilt: -5deg;
-  }
-
-  .banner--br {
-    --tilt: 8deg;
-  }
 }
 
 @media (max-height: 640px) {
-  .banner-wrap--tl,
-  .banner-wrap--tr,
-  .banner-wrap--mr,
-  .banner-wrap--bl,
-  .banner-wrap--br {
-    height: clamp(3.2rem, 20vh, 96px);
-  }
-
   .banner__sub {
     display: none;
   }
@@ -3814,10 +3850,16 @@
     font-size: 0.72rem;
   }
 
-  .skill-star__badge {
+  .skill-star__badge:not(.skill-star__badge--max) {
     width: 1.35rem;
     height: 1.35rem;
     font-size: 0.82rem;
+  }
+
+  .skill-star__badge--max {
+    right: -1.35rem;
+    min-width: 2.2rem;
+    font-size: 0.68rem;
   }
 
   .transition-wipe {
@@ -3843,7 +3885,7 @@
     height: 3rem;
   }
 
-  .persona-tag {
+  .persona-tag:not(.job-meta-tag) {
     width: 7.4rem;
     height: 1.75rem;
   }
