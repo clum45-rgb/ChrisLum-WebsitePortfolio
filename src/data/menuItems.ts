@@ -6,6 +6,7 @@ export type SubStyle = 'script' | 'jp'
 export type MenuItem = {
   id: SectionId
   label: string
+  boxLetter: string
   sublabel: string
   subStyle: SubStyle
   path: string
@@ -17,6 +18,7 @@ export const menuItems: MenuItem[] = [
   {
     id: 'about',
     label: 'ABOUT ME',
+    boxLetter: 'O',
     sublabel: 'Know me',
     subStyle: 'script',
     path: '/about',
@@ -26,6 +28,7 @@ export const menuItems: MenuItem[] = [
   {
     id: 'experience',
     label: 'EXPERIENCE',
+    boxLetter: 'P',
     sublabel: '経歴',
     subStyle: 'jp',
     path: '/experience',
@@ -33,8 +36,19 @@ export const menuItems: MenuItem[] = [
     button: 'square',
   },
   {
+    id: 'contact',
+    label: 'CONTACT',
+    boxLetter: 'O',
+    sublabel: '連絡する',
+    subStyle: 'jp',
+    path: '/contact',
+    slot: 'mr',
+    button: 'circle',
+  },
+  {
     id: 'projects',
     label: 'PROJECTS',
+    boxLetter: 'T',
     sublabel: 'プロジェクト',
     subStyle: 'jp',
     path: '/projects',
@@ -44,20 +58,12 @@ export const menuItems: MenuItem[] = [
   {
     id: 'skills',
     label: 'SKILLS',
+    boxLetter: 'L',
     sublabel: 'スキル',
     subStyle: 'jp',
     path: '/skills',
     slot: 'bl',
     button: 'dpad',
-  },
-  {
-    id: 'contact',
-    label: 'CONTACT',
-    sublabel: '連絡する',
-    subStyle: 'jp',
-    path: '/contact',
-    slot: 'mr',
-    button: 'circle',
   },
 ]
 

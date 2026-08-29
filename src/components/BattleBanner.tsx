@@ -60,7 +60,7 @@ export function BattleBanner({
       </svg>
       <span className="banner__copy">
         <span className="banner__label">
-          <CutoutText text={item.label} />
+          <CutoutText text={item.label} boxLetter={item.boxLetter} />
         </span>
         <span className={`banner__sub banner__sub--${item.subStyle}`}>
           {item.sublabel}
