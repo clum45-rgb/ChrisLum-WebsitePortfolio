@@ -55,7 +55,9 @@ export function JobDossier() {
           onClick={() => cycle(-1)}
           aria-label="Previous role"
         >
-          <span className="ps-btn ps-btn--l2">L1</span>
+          <span className="ps-btn ps-btn--l2" aria-hidden="true">
+            ←
+          </span>
           <span>Prev</span>
         </button>
         <button
@@ -64,7 +66,9 @@ export function JobDossier() {
           onClick={() => cycle(1)}
           aria-label="Next role"
         >
-          <span className="ps-btn ps-btn--l2">R1</span>
+          <span className="ps-btn ps-btn--l2" aria-hidden="true">
+            →
+          </span>
           <span>Next</span>
         </button>
       </div>
@@ -198,39 +202,69 @@ function JobDetail({ job, index }: { job: Experience; index: number }) {
         )}
       </ul>
 
-      <QuadPlate
-        className="job-dossier__box"
-        viewBox="0 0 760 500"
-        outline={experienceShapes.dossier.red}
-        fill={experienceShapes.dossier.black}
-      >
-        <div className="job-dossier__inner">
-          {job.comingSoon ? (
+      {job.comingSoon ? (
+        <QuadPlate
+          className="job-dossier__box"
+          viewBox="0 0 760 500"
+          outline={experienceShapes.dossier.red}
+          fill={experienceShapes.dossier.black}
+        >
+          <div className="job-dossier__inner">
             <p className="job-dossier__soon">Coming soon</p>
-          ) : (
-            <>
-              <p className="job-dossier__summary">{job.summary}</p>
-              <p className="job-dossier__duties">Duties</p>
-              <ul className="job-dossier__bullets">
-                {job.highlights.map((highlight) => (
-                  <li key={highlight}>{highlight}</li>
-                ))}
-              </ul>
-              {job.href && (
-                <a
-                  className="persona-box__next job-dossier__link"
-                  href={job.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <span className="persona-box__next-label">Company</span>
-                  <span className="persona-box__next-name">Visit Site</span>
-                </a>
-              )}
-            </>
-          )}
+          </div>
+        </QuadPlate>
+      ) : (
+        <div className="job-dossier__panels">
+          <JobSummary job={job} />
+          <JobDuties job={job} />
         </div>
-      </QuadPlate>
+      )}
     </>
+  )
+}
+
+function JobSummary({ job }: { job: Experience }) {
+  return (
+    <QuadPlate
+      className="job-dossier__box job-dossier__box--summary"
+      viewBox="0 0 760 500"
+      outline={experienceShapes.dossier.red}
+      fill={experienceShapes.dossier.black}
+    >
+      <div className="job-dossier__inner">
+        <p className="job-dossier__label">Description</p>
+        <p className="job-dossier__summary">{job.summary}</p>
+        {job.href && (
+          <a
+            className="persona-cta"
+            href={job.href}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Visit Site
+          </a>
+        )}
+      </div>
+    </QuadPlate>
+  )
+}
+
+function JobDuties({ job }: { job: Experience }) {
+  return (
+    <QuadPlate
+      className="job-dossier__box job-dossier__box--duties"
+      viewBox="0 0 760 500"
+      outline={experienceShapes.duties.red}
+      fill={experienceShapes.duties.black}
+    >
+      <div className="job-dossier__inner">
+        <p className="job-dossier__duties">Duties</p>
+        <ul className="job-dossier__bullets">
+          {job.highlights.map((highlight) => (
+            <li key={highlight}>{highlight}</li>
+          ))}
+        </ul>
+      </div>
+    </QuadPlate>
   )
 }
