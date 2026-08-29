@@ -1,0 +1,32 @@
+[
+  {
+    "text": "Catch me snowboarding on the mountains! Not hiking though...",
+    "photo": "chris-snowboard.png",
+    "photoFit": "wave",
+    "alt": "Chris in snowboard gear, waving"
+  },
+  {
+    "text": "Is that an open job position...?",
+    "photo": "chris-matcha.png",
+    "photoFit": "tall",
+    "alt": "Chris looking up, holding a drink"
+  },
+  {
+    "text": "Hmm...I really want to design, develop, test, and maintain computer software and applications to meet user and business needs right now.",
+    "photo": "chris-thinking.png",
+    "photoFit": "bust",
+    "alt": "Chris looking toward the conversation"
+  },
+  {
+    "text": "Let's chat over some food! clum45@uw.edu",
+    "photo": "chris-beli.png",
+    "photoFit": "bust",
+    "alt": "Chris eating fruit from a watermelon bowl"
+  },
+  {
+    "text": "Woof?",
+    "photo": "chris-dog.png",
+    "photoFit": "bust",
+    "alt": "Chris's dog looking at the camera"
+  }
+]
