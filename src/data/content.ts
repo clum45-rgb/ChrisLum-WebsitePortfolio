@@ -1,21 +1,24 @@
 export const site = {
   name: 'Christopher Lum',
+  dialogueName: 'Chris',
   hudName: 'Christopher Lum',
   hudCaption: 'Software Engineer',
   tagline: 'Informatics @ UW | Aspiring Software Developer',
-  role: 'Data Science & Applied Mathematics',
+  role: 'Univeristy of Washington',
   year: 'Year 3',
-  blurb:
-    'When I\'m not working I\'m probably playing pickleball, trying a new latte, or in the mountains hopefully snowboarding and not hiking. Don\'t be afraid to reach out (unless its hiking)!',
   photo: {
     src: `${import.meta.env.BASE_URL}images/profile.jpg`,
     alt: 'Photo of Christopher Lum',
+  },
+  schoolLogo: {
+    src: `${import.meta.env.BASE_URL}images/uw-ischool.png`,
+    alt: 'University of Washington Information School',
   },
   background: {
     src: `${import.meta.env.BASE_URL}images/background.jpg`,
     alt: 'Christopher Lum at sunset',
   },
-  bio: "Hello! I am currently studying Informatics & Applied Math at UW with a desire to solve problems through software and AI. On the side I like to build projects that make my own life a little easier, and may be useful to others as well!",
+  bio: "Hello! I am currently studying Data Science & Applied Math at UW with a desire to solve problems through software and AI. On the side I like to build projects that make my own life a little easier, and may be useful to others as well!",
   email: 'clum45@uw.edu',
   github: 'https://github.com/clum45-rgb',
   linkedin: 'https://www.linkedin.com/in/christopher-s-lum/',
@@ -32,10 +35,12 @@ export type Project = {
   note?: string
   linkLabel: string
   href: string
+  demoVideo?: string
   images: { src: string; alt: string }[]
 }
 
 const image = (file: string) => `${import.meta.env.BASE_URL}images/${file}`
+const video = (file: string) => `${import.meta.env.BASE_URL}videos/${file}`
 
 export const projects: Project[] = [
   {
@@ -47,7 +52,13 @@ export const projects: Project[] = [
       'Eats is an AI-powered food inventory app I built for college students who want to cook with whatever is already in the fridge. Users photograph their groceries, and an image-processing plus LLM pipeline identifies and normalizes ingredients into a live inventory. From there, a recommendation engine uses vector embeddings and ranking to match recipes to what they actually have, with a shopping list to fill in the gaps. Inventory, recipes, and ingredient relationships are stored in PostgreSQL on Supabase.',
     linkLabel: 'View Project',
     href: 'https://github.com/clum45-rgb/eats',
-    images: [],
+    images: [
+      { src: image('eats-home.jpg'), alt: 'Eats home screen with fridge scan and matches' },
+      { src: image('eats-inventory.jpg'), alt: 'Eats inventory of kitchen ingredients' },
+      { src: image('eats-recipes.jpg'), alt: 'Eats recipes list with search' },
+      { src: image('eats-matches.jpg'), alt: 'Eats recipe matches ranked against inventory' },
+      { src: image('eats-shopping.jpg'), alt: 'Eats shopping list with nearby product search' },
+    ],
   },
   {
     id: 'lumis',
@@ -58,7 +69,13 @@ export const projects: Project[] = [
       'Lumis is a self-improvement platform I built that turns a single personal goal into a game-like ranked progression system. After a user defines a goal, OpenAI generates a personalized roadmap, then the app tracks weekly momentum with progress scores, rank updates, and a coaching chatbot that knows their habits. User actions and weekly progress live in a PostgreSQL data model on Supabase, and a server-side scoring pipeline calculates weekly scores, updates ranks, and detects stagnation so coaching can adapt.',
     linkLabel: 'View Project',
     href: 'https://github.com/clum45-rgb/lumis',
-    images: [],
+    images: [
+      { src: image('lumis-home.png'), alt: 'Lumis home screen for setting a goal' },
+      { src: image('lumis-daily.png'), alt: 'Lumis daily dashboard with work and health tasks' },
+      { src: image('lumis-ladder.png'), alt: 'Lumis work goals ladder with ranks and progress' },
+      { src: image('lumis-challenges.png'), alt: 'Lumis daily and weekly challenges' },
+      { src: image('lumis-health.png'), alt: 'Lumis health and fitness weekly tracker' },
+    ],
   },
   {
     id: 'clubhub',
@@ -93,24 +110,6 @@ export const projects: Project[] = [
     ],
   },
   {
-    id: 'pathfinder',
-    title: 'Pathfinder UW',
-    heading: 'Pathfinder',
-    blurb: 'Helps new hikers pick trails, pack right, and stay safe.',
-    tech: ['Figma', 'HTML', 'CSS'],
-    description:
-      'Pathfinder is a comprehensive website tailored to new hikers, designed to centralize resources and provide an interactive and engaging experience. The website has three primary sections: Trail Recommendations, Safety and Preparation, and Community Feedback. The Trail Recommendations section features filters for location, difficulty, altitude, and length, making it easier for users to discover hikes suited to their preferences and needs. The Safety and Preparation section consists of tips on selecting suitable gear, preparing for weather conditions, and links to CPR and first aid courses available online or in their area. Finally, the Community Feedback tab serves as a platform for hikers to share stories, ask questions, and learn from each other’s experiences. It supports beginner hikers in building confidence, fostering connections, and enjoying the outdoors safely and responsibly.',
-    linkLabel: 'View Prototype',
-    href: 'https://www.figma.com/proto/9FF7Ms68Ns7m4hdavGZPlY/info-200-pathfinder?node-id=3-3&starting-point-node-id=1%3A25&scaling=contain&t=W212CZ3wzqTO49lN-1',
-    images: [
-      { src: image('pathfinder-1.jpg'), alt: 'Pathfinder UW screenshot 1' },
-      { src: image('pathfinder-2.jpg'), alt: 'Pathfinder UW screenshot 2' },
-      { src: image('pathfinder-3.jpg'), alt: 'Pathfinder UW screenshot 3' },
-      { src: image('pathfinder-4.jpg'), alt: 'Pathfinder UW screenshot 4' },
-      { src: image('pathfinder-5.jpg'), alt: 'Pathfinder UW screenshot 5' },
-    ],
-  },
-  {
     id: 'study-spot',
     title: 'Find a Study Spot UW',
     heading: 'Study Spot',
@@ -120,10 +119,30 @@ export const projects: Project[] = [
       'I designed a mobile app prototype in Figma to help UW students locate ideal study spaces using real-time filters like noise level, crowd size, and hours. Integrated interactive maps and personalization features, and validated the design through user interviews and iterative feedback.',
     linkLabel: 'View Prototype',
     href: 'https://www.figma.com/proto/6tFGjxSJckaWbqAsgHmzmE/info360-prototype?node-id=10-2&starting-point-node-id=10%3A2&t=BO7cchcYPHj3Phm1-1',
+    demoVideo: video('study-spot-demo.mp4'),
     images: [
       { src: image('study-spot-home.png'), alt: 'Study spot home page with filter dropdown' },
       { src: image('study-spot-pin.png'), alt: 'Study spot map with location pin' },
       { src: image('study-spot-kane.png'), alt: 'Kane Hall study spot pin details' },
+    ],
+  },
+  {
+    id: 'pathfinder',
+    title: 'Pathfinder UW',
+    heading: 'Pathfinder',
+    blurb: 'Helps new hikers pick trails, pack right, and stay safe.',
+    tech: ['Figma', 'HTML', 'CSS'],
+    description:
+      'Pathfinder is a comprehensive website tailored to new hikers, designed to centralize resources and provide an interactive and engaging experience. The website has three primary sections: Trail Recommendations, Safety and Preparation, and Community Feedback. The Trail Recommendations section features filters for location, difficulty, altitude, and length, making it easier for users to discover hikes suited to their preferences and needs. The Safety and Preparation section consists of tips on selecting suitable gear, preparing for weather conditions, and links to CPR and first aid courses available online or in their area. Finally, the Community Feedback tab serves as a platform for hikers to share stories, ask questions, and learn from each other’s experiences. It supports beginner hikers in building confidence, fostering connections, and enjoying the outdoors safely and responsibly.',
+    linkLabel: 'View Prototype',
+    href: 'https://www.figma.com/proto/9FF7Ms68Ns7m4hdavGZPlY/info-200-pathfinder?node-id=3-3&starting-point-node-id=1%3A25&scaling=contain&t=W212CZ3wzqTO49lN-1',
+    demoVideo: video('pathfinder-demo.mp4'),
+    images: [
+      { src: image('pathfinder-1.jpg'), alt: 'Pathfinder UW screenshot 1' },
+      { src: image('pathfinder-2.jpg'), alt: 'Pathfinder UW screenshot 2' },
+      { src: image('pathfinder-3.jpg'), alt: 'Pathfinder UW screenshot 3' },
+      { src: image('pathfinder-4.jpg'), alt: 'Pathfinder UW screenshot 4' },
+      { src: image('pathfinder-5.jpg'), alt: 'Pathfinder UW screenshot 5' },
     ],
   },
 ]
@@ -162,9 +181,10 @@ export const experiences: Experience[] = [
     dates: '2025 — Present',
     location: 'Remote',
     letter: 'P',
+    logo: image('ploomba-logo.png'),
     href: 'https://www.ploomba.com/',
     summary:
-      'Build product software for an agtech robotics startup, helping farms collect field data and plan harvests through connected hardware, forecasting, and a grower-facing app.',
+      'I Build product software for an agritech robotics startup, helping farms collect field data and plan harvests through connected hardware, forecasting, and a grower-facing app.',
     highlights: [
       'Ship features across Ploomba’s farming platform, from field data workflows to the grower-facing product.',
       'Collaborate in a small startup team to turn product needs into usable interfaces and reliable backend work.',
