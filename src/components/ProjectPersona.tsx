@@ -62,7 +62,9 @@ export function ProjectPersona() {
           onClick={() => cycle(-1)}
           aria-label="Previous project"
         >
-          <span className="ps-btn ps-btn--l2">L1</span>
+          <span className="ps-btn ps-btn--l2" aria-hidden="true">
+            ←
+          </span>
           <span>Prev</span>
         </button>
         <button
@@ -71,9 +73,29 @@ export function ProjectPersona() {
           onClick={() => cycle(1)}
           aria-label="Next project"
         >
-          <span className="ps-btn ps-btn--l2">R1</span>
+          <span className="ps-btn ps-btn--l2" aria-hidden="true">
+            →
+          </span>
           <span>Next</span>
         </button>
+        <ol className="persona__dots" aria-label="Project pages">
+          {projects.map((item, itemIndex) => (
+            <li key={item.id}>
+              <button
+                type="button"
+                className={[
+                  'persona__dot',
+                  itemIndex === index && 'is-active',
+                ]
+                  .filter(Boolean)
+                  .join(' ')}
+                aria-label={`Go to project ${itemIndex + 1}: ${item.heading ?? item.title}`}
+                aria-current={itemIndex === index ? 'true' : undefined}
+                onClick={() => setIndex(itemIndex)}
+              />
+            </li>
+          ))}
+        </ol>
       </div>
 
       <AnimatePresence mode="wait">
@@ -124,7 +146,8 @@ export function ProjectPersona() {
             </div>
           </header>
 
-          <ProjectFrame
+          <ProjectFrame project={project} />
+          <ProjectMedia
             project={project}
             onOpenImage={setActiveImage}
           />
@@ -142,13 +165,7 @@ export function ProjectPersona() {
   )
 }
 
-function ProjectFrame({
-  project,
-  onOpenImage,
-}: {
-  project: Project
-  onOpenImage: (image: ActiveImage) => void
-}) {
+function ProjectFrame({ project }: { project: Project }) {
   return (
     <QuadPlate
       className="persona-box"
@@ -157,37 +174,123 @@ function ProjectFrame({
       fill={personaShapes.box.black}
     >
       <div className="persona-box__inner">
-        <p className="persona-box__text">{project.description}</p>
-        {project.note && <p className="persona-box__note">{project.note}</p>}
-        {project.images.length > 0 && (
-          <div className="persona-box__shots">
-            {project.images.map((image) => (
-              <img
-                key={image.src}
-                src={image.src}
-                alt={image.alt}
-                tabIndex={0}
-                onClick={() => onOpenImage(image)}
-                onKeyDown={(event) => {
-                  if (event.key === 'Enter' || event.key === ' ') {
-                    event.preventDefault()
-                    event.stopPropagation()
-                    onOpenImage(image)
-                  }
-                }}
-              />
-            ))}
-          </div>
-        )}
+        <div className="persona-box__copy">
+          <span className="persona-box__avoid" aria-hidden="true" />
+          <p className="persona-box__text">{project.description}</p>
+          {project.note && <p className="persona-box__note">{project.note}</p>}
+        </div>
         <a
-          className="persona-box__next"
+          className="persona-cta"
           href={project.href}
           target="_blank"
           rel="noopener noreferrer"
         >
-          <span className="persona-box__next-label">View Project</span>
-          <span className="persona-box__next-name">{project.linkLabel}</span>
+          {project.linkLabel}
         </a>
+      </div>
+    </QuadPlate>
+  )
+}
+
+function ProjectMedia({
+  project,
+  onOpenImage,
+}: {
+  project: Project
+  onOpenImage: (image: ActiveImage) => void
+}) {
+  return (
+    <aside className="persona__media" aria-label={`${project.title} media`}>
+      <ProjectDemo project={project} />
+      <ProjectGallery project={project} onOpenImage={onOpenImage} />
+    </aside>
+  )
+}
+
+function isHostedVideoFile(url: string) {
+  return /\.(mp4|webm|ogg|mov)(\?|#|$)/i.test(url)
+}
+
+function ProjectDemo({ project }: { project: Project }) {
+  const src = project.demoVideo
+  const playsInPage = Boolean(src && isHostedVideoFile(src))
+
+  const inner = (
+    <div className="persona-demo__inner">
+      <span className="persona-demo__play" aria-hidden="true" />
+      <p className="persona-demo__kicker">Demo</p>
+      <p className="persona-demo__copy">
+        {src ? 'Watch demo' : 'Coming soon'}
+      </p>
+    </div>
+  )
+
+  return (
+    <QuadPlate
+      className={`persona-demo${playsInPage ? ' persona-demo--video' : ''}`}
+      viewBox="0 0 800 440"
+      outline={personaShapes.media.red}
+      fill={personaShapes.media.black}
+    >
+      {playsInPage && src ? (
+        <video
+          key={src}
+          className="persona-demo__video"
+          src={src}
+          controls
+          playsInline
+          preload="metadata"
+          aria-label={`${project.heading ?? project.title} demo`}
+        />
+      ) : src ? (
+        <a
+          className="persona-demo__link"
+          href={src}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {inner}
+        </a>
+      ) : (
+        inner
+      )}
+    </QuadPlate>
+  )
+}
+
+function ProjectGallery({
+  project,
+  onOpenImage,
+}: {
+  project: Project
+  onOpenImage: (image: ActiveImage) => void
+}) {
+  return (
+    <QuadPlate
+      className="persona-gallery"
+      viewBox="0 0 800 440"
+      outline={personaShapes.media.red}
+      fill={personaShapes.media.black}
+    >
+      <div className="persona-gallery__inner">
+        <p className="persona-gallery__kicker">Gallery</p>
+        {project.images.length > 0 ? (
+          <div className="persona-gallery__grid">
+            {project.images.map((image) => (
+              <button
+                key={image.src}
+                type="button"
+                className="persona-gallery__shot"
+                onClick={() => onOpenImage(image)}
+                aria-label={`Enlarge ${image.alt}`}
+              >
+                <img src={image.src} alt={image.alt} />
+              </button>
+            ))}
+          </div>
+        ) : (
+          <p className="persona-gallery__empty">Coming soon</p>
+        )}
       </div>
     </QuadPlate>
   )
