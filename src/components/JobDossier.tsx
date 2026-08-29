@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { experiences, type Experience } from '../data/content'
 import { experienceShapes } from '../data/experienceShapes'
 import { QuadPlate } from './QuadPlate'
+import { StackNext } from './StackNext'
 
 function padIndex(index: number) {
   return String(index + 1).padStart(2, '0')
@@ -128,6 +129,8 @@ export function JobDossier() {
           <JobDetail job={job} index={index} />
         </motion.article>
       </AnimatePresence>
+
+      <StackNext label="Next role" onClick={() => cycle(1)} />
     </section>
   )
 }

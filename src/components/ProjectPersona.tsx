@@ -4,6 +4,7 @@ import { personaShapes } from '../data/personaShapes'
 import { projects, type Project } from '../data/content'
 import { Lightbox } from './Lightbox'
 import { QuadPlate } from './QuadPlate'
+import { StackNext } from './StackNext'
 
 type ActiveImage = {
   src: string
@@ -160,6 +161,10 @@ export function ProjectPersona() {
           alt={activeImage.alt}
           onClose={() => setActiveImage(null)}
         />
+      )}
+
+      {!activeImage && (
+        <StackNext label="Next project" onClick={() => cycle(1)} />
       )}
     </section>
   )

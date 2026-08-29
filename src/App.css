@@ -2377,6 +2377,78 @@
   text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7);
 }
 
+@media (max-width: 850px) {
+  .item-menu {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 7.4rem 0.85rem 5.4rem;
+    transform: rotate(2deg);
+    transform-origin: top center;
+    box-sizing: border-box;
+  }
+
+  .item-menu__smear {
+    inset: -8% 6% -14% 2%;
+  }
+
+  .item-menu__panel {
+    width: 100%;
+    max-width: 100%;
+    padding: 0.55rem 0.35rem 0.7rem;
+  }
+
+  .item-menu__header {
+    margin: 0 0 0.75rem 0.05rem;
+  }
+
+  .item-menu__stencil {
+    flex-wrap: nowrap;
+  }
+
+  .item-menu__stencil .stencil__cell {
+    min-width: 0.92em;
+    height: 1.18em;
+    font-size: clamp(1.05rem, 6.4vw, 1.7rem);
+  }
+
+  .item-menu__slot:nth-child(1) .item-menu__row,
+  .item-menu__slot:nth-child(2) .item-menu__row,
+  .item-menu__slot:nth-child(3) .item-menu__row {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .item-menu__row {
+    width: 100%;
+  }
+
+  .item-menu__body,
+  .item-menu__row.is-selected .item-menu__body {
+    min-width: 0;
+    width: 100%;
+    min-height: 3.45rem;
+    padding: 0.38rem 0.7rem 0.38rem 0.55rem;
+  }
+
+  .item-menu__row.is-selected .item-menu__spike {
+    width: 1.15rem;
+  }
+
+  .item-menu__label {
+    font-size: clamp(1rem, 4.8vw, 1.28rem);
+  }
+
+  .item-menu__desc {
+    margin-top: 0.7rem;
+    font-size: clamp(0.88rem, 3.8vw, 1.08rem);
+  }
+}
+
 /* ── Persona status (Projects) ── */
 
 .persona {
@@ -2433,6 +2505,42 @@
   height: 2.2rem;
   font-size: 1.4rem;
   border-width: 3px;
+}
+
+.stack-next {
+  display: none;
+  position: fixed;
+  right: 0.7rem;
+  bottom: 3.55rem;
+  z-index: 8;
+  align-items: center;
+  gap: 0.42rem;
+  padding: 0.48rem 0.72rem 0.48rem 0.9rem;
+  border: 0;
+  background: #111;
+  color: var(--p5-white);
+  font-family: var(--hud-font);
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  clip-path: polygon(0 10%, 96% 0, 100% 86%, 5% 100%);
+  box-shadow: 4px 4px 0 var(--p5-red);
+  transform: rotate(-4deg);
+  pointer-events: auto;
+}
+
+.stack-next .ps-btn--l2 {
+  width: 2.35rem;
+  height: 1.45rem;
+  font-size: 0.95rem;
+  border-width: 2px;
+}
+
+.stack-next:focus-visible {
+  outline: 2px solid var(--p5-white);
+  outline-offset: 3px;
 }
 
 .persona__dots {
@@ -3617,7 +3725,7 @@
     min-height: 100%;
     overflow: visible;
     overflow-x: hidden;
-    padding: 6.2rem 0.9rem 4.6rem;
+    padding: 6.2rem 0.9rem 6.2rem;
     gap: 1.15rem;
   }
 
@@ -3758,11 +3866,15 @@
   .persona-gallery {
     transform: rotate(-1.2deg);
   }
+
+  .persona .stack-next {
+    display: inline-flex;
+  }
 }
 
 @media (max-width: 900px) {
   .page-content.page-content--experience {
-    overflow: auto;
+    overflow: visible;
   }
 
   .job-file {
@@ -3770,9 +3882,8 @@
     flex-direction: column;
     height: auto;
     min-height: 100%;
-    overflow: visible;
-    overflow-x: hidden;
-    padding: 6rem 0.9rem 4.6rem;
+    overflow: hidden;
+    padding: 6rem 0.9rem 6.2rem;
     gap: 0.85rem;
   }
 
@@ -3805,7 +3916,8 @@
     gap: 0.38rem 0.42rem;
     width: 100%;
     max-height: none;
-    overflow: visible;
+    overflow: hidden;
+    overscroll-behavior: none;
     transform: rotate(-2deg);
   }
 
@@ -3845,7 +3957,7 @@
 
   .job-dossier {
     min-height: 0;
-    overflow-x: hidden;
+    overflow: visible;
   }
 
   .job-dossier__head {
@@ -3890,12 +4002,25 @@
   .job-dossier__box {
     width: 100%;
     max-width: none;
-    height: min(44vh, 380px);
-    min-height: 220px;
+    height: auto;
+    min-height: 0;
   }
 
   .job-dossier__box .quad-plate__content {
+    position: relative;
+    inset: auto;
     padding: 2.55rem 1.55rem 1.2rem 1.45rem;
+  }
+
+  .job-dossier__inner {
+    height: auto;
+  }
+
+  .job-dossier__summary,
+  .job-dossier__bullets {
+    overflow: visible;
+    flex: 0 0 auto;
+    min-height: 0;
   }
 
   .job-dossier__box--duties {
@@ -3908,6 +4033,10 @@
 
   .job-dossier__role p {
     font-size: clamp(0.78rem, 2.4vw, 1.05rem);
+  }
+
+  .job-file .stack-next {
+    display: inline-flex;
   }
 }
 
@@ -3976,34 +4105,8 @@
   }
 
   .item-menu {
-    top: clamp(5.5vh, 10vh, 13vh);
-    left: 5vw;
-    right: 4vw;
-    transform: rotate(4deg);
-    max-width: calc(100vw - 9vw);
-  }
-
-  .item-menu__panel {
-    width: min(88vw, 520px);
-    padding: clamp(0.7rem, 1.8vh, 1.3rem) clamp(0.7rem, 2vw, 1.2rem);
-  }
-
-  .item-menu__smear {
-    inset: -16% 8% -26% -4%;
-  }
-
-  .item-menu__body {
-    min-width: 0;
-    width: min(78vw, 380px);
-  }
-
-  .item-menu__row.is-selected .item-menu__body {
-    min-width: 0;
-    width: min(82vw, 410px);
-  }
-
-  .item-menu__row.is-selected .item-menu__spike {
-    width: clamp(1.6rem, 10vw, 4.5rem);
+    padding: 7.5rem 0.7rem 5.2rem;
+    transform: rotate(1.6deg);
   }
 
   .section-page {
@@ -4072,16 +4175,8 @@
 
 @media (max-width: 520px) {
   .item-menu {
-    top: 8vh;
-    left: 4vw;
-    transform: rotate(2deg) scale(0.92);
-    transform-origin: top left;
-  }
-
-  .item-menu__slot:nth-child(1) .item-menu__row,
-  .item-menu__slot:nth-child(2) .item-menu__row,
-  .item-menu__slot:nth-child(3) .item-menu__row {
-    margin-left: 0;
+    padding: 8.2rem 0.55rem 5rem;
+    transform: rotate(1.2deg);
   }
 
   .item-menu__label {
@@ -4089,7 +4184,7 @@
   }
 
   .item-menu__stencil .stencil__cell {
-    font-size: clamp(1.05rem, 5.4vw, 1.45rem);
+    font-size: clamp(0.98rem, 5.2vw, 1.35rem);
   }
 }
 
