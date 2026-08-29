@@ -1,11 +1,52 @@
-import { Link } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { site } from '../data/content'
 
 type HudOverlayProps = {
   panelOpen: boolean
+  persistName?: boolean
 }
 
-export function HudOverlay({ panelOpen }: HudOverlayProps) {
+function currentScrollOffset(event?: Event) {
+  let top = window.scrollY
+
+  if (event?.target instanceof HTMLElement) {
+    top = Math.max(top, event.target.scrollTop)
+  }
+
+  document.querySelectorAll('.page-content').forEach((node) => {
+    if (node instanceof HTMLElement) {
+      top = Math.max(top, node.scrollTop)
+    }
+  })
+
+  return top
+}
+
+export function HudOverlay({ panelOpen, persistName = false }: HudOverlayProps) {
+  const { pathname } = useLocation()
+  const [scrolledAway, setScrolledAway] = useState(false)
+
+  useEffect(() => {
+    if (persistName) {
+      setScrolledAway(false)
+      return
+    }
+
+    const onScroll = (event?: Event) => {
+      setScrolledAway(currentScrollOffset(event) > 16)
+    }
+
+    onScroll()
+    document.addEventListener('scroll', onScroll, { capture: true, passive: true })
+    window.addEventListener('scroll', onScroll, { passive: true })
+
+    return () => {
+      document.removeEventListener('scroll', onScroll, true)
+      window.removeEventListener('scroll', onScroll)
+    }
+  }, [persistName, panelOpen, pathname])
+
   const name = (
     <>
       <span className="hud__name-red" aria-hidden="true" />
@@ -16,18 +57,22 @@ export function HudOverlay({ panelOpen }: HudOverlayProps) {
     </>
   )
 
+  const nameClass = [
+    'hud__name',
+    panelOpen && 'hud__name--link',
+    scrolledAway && 'is-scrolled',
+  ]
+    .filter(Boolean)
+    .join(' ')
+
   return (
     <div className="hud">
       {panelOpen ? (
-        <Link
-          to="/"
-          className="hud__name hud__name--link"
-          aria-label="Back to home"
-        >
+        <Link to="/" className={nameClass} aria-label="Back to home">
           {name}
         </Link>
       ) : (
-        <div className="hud__name">{name}</div>
+        <div className={nameClass}>{name}</div>
       )}
 
       <div className="hud__prompts">

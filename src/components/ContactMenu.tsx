@@ -16,7 +16,7 @@ const items: ContactItem[] = [
   {
     id: 'email',
     label: 'Email',
-    description: 'Sends a message to one ally.',
+    description: 'Click to send me an email at: clum45@uw.edu',
     href: `mailto:${site.email}`,
     action: 'MAIL',
     icon: 'mail',
@@ -24,7 +24,7 @@ const items: ContactItem[] = [
   {
     id: 'github',
     label: 'GitHub',
-    description: 'Opens a link to my repositories.',
+    description: 'Opens a link to my github repositories.',
     href: site.github,
     action: 'CODE',
     external: true,
@@ -33,7 +33,7 @@ const items: ContactItem[] = [
   {
     id: 'linkedin',
     label: 'LinkedIn',
-    description: 'Connects you with one professional.',
+    description: 'Feel free to connect with me :)',
     href: site.linkedin,
     action: 'LINK',
     external: true,

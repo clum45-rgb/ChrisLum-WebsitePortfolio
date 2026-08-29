@@ -9,10 +9,10 @@ import {
 const CX = 200
 const CY = 200
 const OUTER = 172
-const INNER_RATIO = 0.42
+const INNER_RATIO = 0.38
 const POINT_COUNT = 5
-const LABEL_TILTS = [-7, 6, -5, 8, -6]
-const LABEL_ORBITS = ['42%', '41%', '41%', '41%', '41%']
+const LABEL_TILTS = [7, 12, 5, -10, -8]
+const LABEL_ORBITS = ['33.5%', '32.5%', '33%', '34.5%', '34.5%']
 
 function tipAngle(index: number) {
   return -Math.PI / 2 + (index * 2 * Math.PI) / POINT_COUNT
@@ -64,7 +64,11 @@ function thresholdDot(statIndex: number, rank: number) {
 
 function descriptionFor(stats: SkillStat[]) {
   return stats
-    .map((stat) => `${stat.label} rank ${stat.level} of ${SKILL_MAX_RANK}`)
+    .map((stat) =>
+      stat.level === SKILL_MAX_RANK
+        ? `${stat.label} rank MAX`
+        : `${stat.label} rank ${stat.level} of ${SKILL_MAX_RANK}`,
+    )
     .join(', ')
 }
 
@@ -76,7 +80,6 @@ export function SkillStarChart() {
   const fillPoints = starPoints(
     skillStats.map((stat) => (stat.level / SKILL_MAX_RANK) * OUTER),
   )
-  const corePoints = regularStar(0.12)
 
   return (
     <figure className="skill-star">
@@ -131,7 +134,6 @@ export function SkillStarChart() {
         )}
 
         <polygon className="skill-star__fill" points={fillPoints} />
-        <polygon className="skill-star__core" points={corePoints} />
       </svg>
 
       <ul className="skill-star__labels">
@@ -147,8 +149,16 @@ export function SkillStarChart() {
               } as CSSProperties
             }
           >
-            <span className="skill-star__badge" aria-hidden="true">
-              {stat.level}
+            <span
+              className={[
+                'skill-star__badge',
+                stat.level === SKILL_MAX_RANK && 'skill-star__badge--max',
+              ]
+                .filter(Boolean)
+                .join(' ')}
+              aria-hidden="true"
+            >
+              {stat.level === SKILL_MAX_RANK ? 'MAX' : stat.level}
             </span>
             <span className="skill-star__plate">
               {stat.lines.map((line) => (
